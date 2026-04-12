@@ -9,7 +9,6 @@ import {
   DocsCallout,
   DocsTable,
   DocsH3,
-  DocsDivider,
 } from "@/components/docs-page";
 
 export const metadata: Metadata = generatePageMetadata({
@@ -87,7 +86,7 @@ Constraints:
         <DocsParagraph>
           CREOR.md is a special file at the root of your project that provides persistent instructions
           to the agent. Think of it as a project constitution -- it is included in every agent
-          interaction, so the agent always knows your project's conventions, architecture, and rules.
+          interaction, so the agent always knows your project&apos;s conventions, architecture, and rules.
         </DocsParagraph>
 
         <DocsH3>What to Include</DocsH3>
@@ -182,14 +181,14 @@ All API endpoints must return responses in this format:
 - 500: Internal error (never expose stack traces)`}</DocsCode>
 
         <DocsParagraph>
-          Rules files are automatically discovered and included in the agent's context. You do not
+          Rules files are automatically discovered and included in the agent&apos;s context. You do not
           need to reference them explicitly -- just create them in the .creor/rules/ directory.
         </DocsParagraph>
       </DocsSection>
 
       <DocsSection id="system-prompt-structure" title="System Prompt Structure">
         <DocsParagraph>
-          Understanding how the agent's system prompt is assembled helps you write better instructions.
+          Understanding how the agent&apos;s system prompt is assembled helps you write better instructions.
           The system prompt is built from multiple sources in this order.
         </DocsParagraph>
 
@@ -208,7 +207,7 @@ All API endpoints must return responses in this format:
 
         <DocsParagraph>
           Your CREOR.md and rules files appear early in the prompt, which gives them high influence
-          over the agent's behavior. Instructions at the project level reliably override default
+          over the agent&apos;s behavior. Instructions at the project level reliably override default
           behaviors.
         </DocsParagraph>
       </DocsSection>

@@ -7,7 +7,6 @@ import {
   DocsParagraph,
   DocsCode,
   DocsTable,
-  DocsList,
   DocsCallout,
   DocsDivider,
 } from "@/components/docs-page";

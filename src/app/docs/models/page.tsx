@@ -5,7 +5,6 @@ import {
   DocsSection,
   DocsH3,
   DocsParagraph,
-  DocsCode,
   DocsTable,
   DocsList,
   DocsCallout,

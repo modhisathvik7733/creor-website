@@ -5,12 +5,9 @@ import {
   DocsSection,
   DocsH3,
   DocsParagraph,
-  DocsCode,
   DocsTable,
   DocsList,
   DocsCallout,
-  DocsDivider,
-  DocsCard,
 } from "@/components/docs-page";
 
 export const metadata: Metadata = generatePageMetadata({

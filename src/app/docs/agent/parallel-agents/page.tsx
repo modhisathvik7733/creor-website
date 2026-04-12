@@ -9,7 +9,6 @@ import {
   DocsCallout,
   DocsTable,
   DocsH3,
-  DocsDivider,
 } from "@/components/docs-page";
 
 export const metadata: Metadata = generatePageMetadata({
@@ -53,7 +52,7 @@ export default function ParallelAgentsPage() {
         <DocsParagraph>
           The parent agent decides when to use parallel execution based on the nature of the request.
           Tasks that are independent (no shared state, no ordering dependency) are good candidates
-          for parallelization. Tasks that depend on each other's results are executed sequentially.
+          for parallelization. Tasks that depend on each other&apos;s results are executed sequentially.
         </DocsParagraph>
       </DocsSection>
 

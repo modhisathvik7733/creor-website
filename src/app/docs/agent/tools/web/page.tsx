@@ -9,7 +9,6 @@ import {
   DocsCallout,
   DocsTable,
   DocsH3,
-  DocsDivider,
 } from "@/components/docs-page";
 
 export const metadata: Metadata = generatePageMetadata({
@@ -138,7 +137,7 @@ Add server-side pagination to the products table using
 
         <DocsH3>Staying Current</DocsH3>
         <DocsParagraph>
-          The agent's training data has a cutoff date. For libraries and frameworks with recent
+          The agent&apos;s training data has a cutoff date. For libraries and frameworks with recent
           releases, web tools bridge the gap by fetching the latest documentation and migration guides.
         </DocsParagraph>
       </DocsSection>

@@ -3,7 +3,6 @@ import { generatePageMetadata } from "@/lib/metadata";
 import {
   DocsPage,
   DocsSection,
-  DocsH3,
   DocsParagraph,
   DocsCode,
   DocsTable,

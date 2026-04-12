@@ -67,13 +67,13 @@ export default function ProvidersOverviewPage() {
 }`}</DocsCode>
         <DocsParagraph>
           You can also select the default model from the Settings UI inside Creor. Open the command
-          palette and search for "Creor: Settings" or click the model name in the status bar.
+          palette and search for &quot;Creor: Settings&quot; or click the model name in the status bar.
         </DocsParagraph>
       </DocsSection>
 
       <DocsSection id="small-model" title="Small Model">
         <DocsParagraph>
-          Creor uses a separate "small model" for lightweight tasks like generating session
+          Creor uses a separate &quot;small model&quot; for lightweight tasks like generating session
           titles and summaries. This keeps costs low for background operations. Configure it
           with the <code className="text-[#FF6A13]">small_model</code> field:
         </DocsParagraph>

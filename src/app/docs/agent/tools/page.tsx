@@ -9,7 +9,6 @@ import {
   DocsCallout,
   DocsTable,
   DocsH3,
-  DocsDivider,
   DocsCard,
 } from "@/components/docs-page";
 
@@ -43,7 +42,7 @@ export default function ToolsOverviewPage() {
         </DocsParagraph>
         <DocsParagraph>
           Tools are not plugins or extensions. They are built into the engine and optimized for the
-          agent's workflow. The agent sees each tool's parameter schema and description, then
+          agent&apos;s workflow. The agent sees each tool&apos;s parameter schema and description, then
           constructs the right call based on what it needs to accomplish.
         </DocsParagraph>
 

@@ -9,7 +9,6 @@ import {
   DocsCallout,
   DocsTable,
   DocsH3,
-  DocsDivider,
 } from "@/components/docs-page";
 
 export const metadata: Metadata = generatePageMetadata({
@@ -37,8 +36,8 @@ export default function ShellToolsPage() {
     >
       <DocsSection id="bash-tool" title="Bash Tool">
         <DocsParagraph>
-          The bash tool executes shell commands in your project's working directory. It is one of
-          the agent's most versatile tools -- used for running tests, installing packages, executing
+          The bash tool executes shell commands in your project&apos;s working directory. It is one of
+          the agent&apos;s most versatile tools -- used for running tests, installing packages, executing
           build scripts, interacting with git, and any other terminal operation.
         </DocsParagraph>
 

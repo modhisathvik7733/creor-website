@@ -9,7 +9,6 @@ import {
   DocsCallout,
   DocsTable,
   DocsH3,
-  DocsDivider,
 } from "@/components/docs-page";
 
 export const metadata: Metadata = generatePageMetadata({
@@ -75,7 +74,7 @@ export default function TaskPlanningToolsPage() {
       <DocsSection id="task" title="Task">
         <DocsParagraph>
           The task tool spawns child agents (subagents) that can execute work in parallel. This is
-          the agent's mechanism for parallelizing work -- each task agent gets its own context and
+          the agent&apos;s mechanism for parallelizing work -- each task agent gets its own context and
           can use the full set of tools independently.
         </DocsParagraph>
 

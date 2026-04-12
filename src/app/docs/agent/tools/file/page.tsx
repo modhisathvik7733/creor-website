@@ -9,7 +9,6 @@ import {
   DocsCallout,
   DocsTable,
   DocsH3,
-  DocsDivider,
 } from "@/components/docs-page";
 
 export const metadata: Metadata = generatePageMetadata({
@@ -200,7 +199,7 @@ edit file_path="/src/config.ts"
       <DocsSection id="glob" title="Glob">
         <DocsParagraph>
           The glob tool finds files by pattern matching. It supports standard glob patterns and returns
-          matching file paths sorted by modification time. This is the agent's primary tool for
+          matching file paths sorted by modification time. This is the agent&apos;s primary tool for
           discovering files in your project.
         </DocsParagraph>
 
@@ -238,7 +237,7 @@ src/utils/*`}</DocsCode>
       <DocsSection id="grep" title="Grep">
         <DocsParagraph>
           The grep tool searches file contents using regex patterns, powered by ripgrep under the hood.
-          It is the agent's primary tool for finding where specific code patterns, function calls,
+          It is the agent&apos;s primary tool for finding where specific code patterns, function calls,
           or strings appear across your project.
         </DocsParagraph>
 
@@ -280,7 +279,7 @@ grep pattern="console\\.log" output_mode="count" glob="*.ts"`}</DocsCode>
       <DocsSection id="ls" title="Ls">
         <DocsParagraph>
           The ls tool lists directory contents with file metadata. It gives the agent a quick overview
-          of a directory's structure without reading every file.
+          of a directory&apos;s structure without reading every file.
         </DocsParagraph>
 
         <DocsParagraph>

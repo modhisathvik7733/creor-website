@@ -57,7 +57,7 @@ export default function BedrockPage() {
         />
         <DocsCallout type="info">
           You must request access to models in the AWS Bedrock console before they can be used.
-          Go to the Bedrock console, select "Model access" in the sidebar, and enable the models
+          Go to the Bedrock console, select &quot;Model access&quot; in the sidebar, and enable the models
           you need.
         </DocsCallout>
       </DocsSection>

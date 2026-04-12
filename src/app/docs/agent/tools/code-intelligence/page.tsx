@@ -9,7 +9,6 @@ import {
   DocsCallout,
   DocsTable,
   DocsH3,
-  DocsDivider,
 } from "@/components/docs-page";
 
 export const metadata: Metadata = generatePageMetadata({
@@ -39,12 +38,12 @@ export default function CodeIntelligencePage() {
         <DocsParagraph>
           Creor integrates with language servers through the Language Server Protocol (LSP). When
           a language server is active for your project, the agent can use it to navigate code
-          with the same precision as your editor's go-to-definition, find-references, and symbol
+          with the same precision as your editor&apos;s go-to-definition, find-references, and symbol
           search features.
         </DocsParagraph>
         <DocsParagraph>
           Language servers run automatically when you open a project -- they are the same language
-          servers that power the editor's IntelliSense, diagnostics, and code navigation. The agent
+          servers that power the editor&apos;s IntelliSense, diagnostics, and code navigation. The agent
           accesses them through the LSP tool, which wraps common language server operations into a
           single tool interface.
         </DocsParagraph>
@@ -129,7 +128,7 @@ lsp operation="references" uri="src/services/user.ts" line=42 character=8
         <DocsParagraph>
           Without find-references, the agent would need to grep for the symbol name, which catches
           string matches but misses renamed imports, aliases, and method overrides. LSP references
-          are semantically accurate because they understand the language's type system and scope rules.
+          are semantically accurate because they understand the language&apos;s type system and scope rules.
         </DocsParagraph>
       </DocsSection>
 

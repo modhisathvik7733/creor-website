@@ -9,7 +9,6 @@ import {
   DocsCallout,
   DocsTable,
   DocsH3,
-  DocsDivider,
 } from "@/components/docs-page";
 
 export const metadata: Metadata = generatePageMetadata({
@@ -37,7 +36,7 @@ export default function SecurityPage() {
     >
       <DocsSection id="security-model" title="Security Model">
         <DocsParagraph>
-          Creor's security is built on the principle of defense in depth. No single layer is
+          Creor&apos;s security is built on the principle of defense in depth. No single layer is
           expected to catch everything -- instead, multiple overlapping controls work together to
           minimize risk. The agent can only do what you allow it to do, and each action passes
           through several checkpoints before execution.
@@ -64,7 +63,7 @@ export default function SecurityPage() {
 
         <DocsH3>macOS (Seatbelt)</DocsH3>
         <DocsParagraph>
-          On macOS, the sandbox uses Apple's Seatbelt framework (sandbox-exec) to create a
+          On macOS, the sandbox uses Apple&apos;s Seatbelt framework (sandbox-exec) to create a
           restricted execution environment. Each bash command runs inside a sandbox profile that
           defines exactly what the process can and cannot do.
         </DocsParagraph>
@@ -81,7 +80,7 @@ export default function SecurityPage() {
         <DocsH3>Linux (seccomp + namespaces)</DocsH3>
         <DocsParagraph>
           On Linux, the sandbox uses seccomp-bpf to filter system calls and Linux namespaces to
-          isolate the process's view of the filesystem and network.
+          isolate the process&apos;s view of the filesystem and network.
         </DocsParagraph>
         <DocsList
           items={[
@@ -264,7 +263,7 @@ external-directory path="/Users/you/other-project/src/shared"
       <DocsSection id="best-practices" title="Best Practices">
         <DocsH3>Start with Ask, Relax as Needed</DocsH3>
         <DocsParagraph>
-          Begin with the default &quot;ask&quot; permission for all tools. As you build trust with the agent's
+          Begin with the default &quot;ask&quot; permission for all tools. As you build trust with the agent&apos;s
           behavior on your project, selectively switch frequently-used tools to &quot;allow&quot;.
         </DocsParagraph>
 
