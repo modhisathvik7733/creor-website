@@ -14,7 +14,6 @@ import {
   BookOpen,
   Newspaper,
   FileText,
-  ArrowRight,
 } from "lucide-react";
 
 interface DropdownItem {
@@ -249,43 +248,33 @@ export function Navbar() {
 
   return (
     <>
-      <nav
-        ref={navRef}
-        className={cn(
-          "fixed top-0 z-50 w-full transition-all duration-500",
-          scrolled
-            ? "border-b border-white/[0.08] bg-black/60 backdrop-blur-[20px] shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
-            : "border-b border-transparent bg-transparent"
-        )}
-      >
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-50" />
-        <div className="flex h-16 items-center justify-between px-8">
-          {/* Left: Logo + Nav */}
-          <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-70">
-              <div className="flex h-7 w-7 items-center justify-center rounded-[7px] bg-foreground">
-                <svg
-                  width="13"
-                  height="13"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-black"
-                >
-                  <polyline points="16 18 22 12 16 6" />
-                  <polyline points="8 6 2 12 8 18" />
-                </svg>
-              </div>
-              <span className="text-[17px] font-semibold tracking-[-0.03em]">
-                Creor
-              </span>
-            </Link>
+      <div className="fixed top-0 z-50 w-full flex justify-center pointer-events-none">
+        <nav
+          ref={navRef}
+          className={cn(
+            "pointer-events-auto border w-full max-w-[1440px] transition-[background-color,border-color,border-radius,box-shadow,backdrop-filter,margin] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
+            scrolled
+              ? "mt-3 rounded-full border-white/[0.10] bg-white/[0.05] backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+              : "mt-5 rounded-none border-transparent bg-transparent shadow-none backdrop-blur-none"
+          )}
+        >
+          <div className="relative flex h-14 w-full items-center px-6">
+            {/* Left: Logo */}
+            <div className="flex items-center">
+              <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-70">
+                <img
+                  src="/creor-nobg-icon.png"
+                  alt="Creor"
+                  className="h-11 w-11"
+                />
+                <span className="text-[17px] font-semibold tracking-[-0.03em]">
+                  Creor
+                </span>
+              </Link>
+            </div>
 
-            {/* Desktop Nav */}
-            <div className="hidden items-center gap-1 md:flex">
+            {/* Center: Desktop Nav */}
+            <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
               {navItems.map((item) => {
                 const hasDropdown = "items" in item && item.items;
 
@@ -304,22 +293,16 @@ export function Navbar() {
                           )
                         }
                         className={cn(
-                          "relative group flex items-center gap-1.5 rounded-md px-3.5 py-2 text-[14px] font-medium transition-all",
+                          "flex items-center gap-1 rounded-md px-3 py-1.5 text-[14px] font-medium transition-colors",
                           openDropdown === item.label
                             ? "text-white"
-                            : "text-white/50 hover:text-white"
+                            : "text-white/55 hover:text-white"
                         )}
                       >
-                        <span>{item.label}</span>
-                        <span
-                          className={cn(
-                            "absolute inset-x-3.5 bottom-1.5 h-px bg-white/20 transition-all origin-left",
-                            openDropdown === item.label ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                          )}
-                        />
+                        {item.label}
                         <ChevronDown
                           className={cn(
-                            "h-4 w-4 transition-transform duration-200",
+                            "h-3.5 w-3.5 transition-transform duration-200",
                             openDropdown === item.label && "rotate-180"
                           )}
                         />
@@ -337,48 +320,41 @@ export function Navbar() {
                   <Link
                     key={item.label}
                     href={item.href!}
-                    className="relative group rounded-md px-3.5 py-2 text-[14px] font-medium text-white/50 transition-all hover:text-white"
+                    className="rounded-md px-3 py-1.5 text-[14px] font-medium text-white/55 transition-colors hover:text-white"
                   >
-                    <span>{item.label}</span>
-                    <span className="absolute inset-x-3.5 bottom-1.5 h-px bg-white/20 scale-x-0 transition-transform origin-left group-hover:scale-x-100" />
+                    {item.label}
                   </Link>
                 );
               })}
             </div>
-          </div>
 
-          {/* Right */}
-          <div className="hidden items-center gap-2 md:flex">
-            <Link
-              href="/login"
-              className="rounded-md px-5 py-2 text-[14px] font-medium text-foreground-secondary transition-colors hover:text-foreground"
-            >
-              Sign in
-            </Link>
-            <Link
-              href="/download"
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-foreground px-6 py-2.5 text-[14px] font-semibold text-background transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_25px_rgba(255,255,255,0.1)]"
-            >
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
-              Download
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </div>
+            {/* Right: CTA */}
+            <div className="ml-auto hidden items-center md:flex">
+              <Link
+                href="/login"
+                className="inline-flex items-center rounded-full border border-white/[0.15] bg-white/[0.08] px-4 py-1.5 text-[13px] font-medium text-white/90 transition-colors hover:bg-white/[0.14] active:scale-[0.97]"
+              >
+                Sign in
+              </Link>
+            </div>
 
-          {/* Mobile */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-md p-1.5 text-foreground md:hidden"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          >
-            {mobileOpen ? (
-              <X className="h-5 w-5" />
-            ) : (
-              <Menu className="h-5 w-5" />
-            )}
-          </button>
-        </div>
-      </nav>
+            {/* Mobile toggle */}
+            <div className="ml-auto flex md:hidden">
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="rounded-md p-1.5 text-foreground"
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              >
+                {mobileOpen ? (
+                  <X className="h-5 w-5" />
+                ) : (
+                  <Menu className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+          </div>
+        </nav>
+      </div>
 
       <MobileMenu isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
     </>

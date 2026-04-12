@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import { AuthProvider } from "@/lib/auth";
 import { Toaster } from "sonner";
 import { generatePageMetadata } from "@/lib/metadata";
@@ -16,6 +16,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
 export const metadata: Metadata = generatePageMetadata();
 
 export default function RootLayout({
@@ -27,10 +33,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="darkreader-lock" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased`}
       >
         <SentryInit />
         <AuthProvider>{children}</AuthProvider>

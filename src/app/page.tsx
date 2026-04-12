@@ -32,6 +32,7 @@ import {
 } from "@/components/structured-data";
 import { TerminalDemo } from "@/components/terminal-demo";
 import { ProviderMarquee } from "@/components/provider-marquee";
+import { AnimatedHero } from "@/components/animated-hero";
 
 /* ─── Data ─── */
 
@@ -163,47 +164,9 @@ export default function Home() {
       <Navbar />
 
       {/* ── Hero ── */}
-      <section className="relative px-6 pt-32 pb-20 sm:pt-40 sm:pb-28">
+      <section className="relative h-auto pb-16 lg:h-[160vh]">
         <GridBackground />
-        <div className="mx-auto max-w-[1080px]">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            {/* Text */}
-            <div>
-              <h1 className="gradient-text text-[clamp(2.5rem,6vw,4.2rem)] font-bold leading-[1.08] tracking-[-0.04em]">
-                Your codebase.
-                <br />
-                Your agents.
-                <br />
-                Your rules.
-              </h1>
-              <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-foreground-secondary sm:text-base">
-                An AI-powered IDE where agents plan, build, and ship &mdash;
-                while you stay in control. Native VS Code fork. 19+ models.
-                Granular permissions. No vendor lock-in.
-              </p>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Link
-                  href="/download"
-                  className="glow-pulse group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-[14px] font-semibold text-background transition-all hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  Download for Free
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-                <Link
-                  href="/pricing"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border px-6 py-2.5 text-[14px] font-medium text-foreground transition-colors hover:bg-muted"
-                >
-                  See Pricing
-                </Link>
-              </div>
-            </div>
-
-            {/* Terminal */}
-            <div className="lg:pl-4">
-              <TerminalDemo />
-            </div>
-          </div>
-        </div>
+        <AnimatedHero />
       </section>
 
       {/* ── Provider Marquee ── */}
