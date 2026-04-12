@@ -969,7 +969,7 @@ export default function BillingPage() {
                     />
                   </div>
                   <p className="mt-1 text-xs text-muted-foreground">
-                    Resets {quota!.monthly.resetsAt ? formatDate(quota!.monthly.resetsAt) : "next month"}
+                    Usage resets {quota!.monthly.resetsAt ? formatDate(quota!.monthly.resetsAt) : "next month"}
                   </p>
                 </>
               ) : (
@@ -1088,7 +1088,7 @@ export default function BillingPage() {
                     <div>
                       <p className="text-lg font-semibold">{formatCurrency(spent)} spent</p>
                       <p className="text-xs text-muted-foreground">
-                        Resets {quota?.monthly.resetsAt ? formatDate(quota.monthly.resetsAt) : "next month"}
+                        Usage resets {quota?.monthly.resetsAt ? formatDate(quota.monthly.resetsAt) : "next month"}
                       </p>
                     </div>
                     {effectiveLimit !== null && (
