@@ -1,8 +1,5 @@
-"use client";
-
-import React from "react";
 import { FadeIn } from "@/components/fade-in";
-import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { TokenBudgetSlider } from "@/components/token-budget-slider";
 import { ArrowRight } from "lucide-react";
 
 /* ── Section 1: Agent Cards ── */
@@ -178,85 +175,6 @@ function FeatureSection({
   );
 }
 
-/* ── Animated Token Budget Slider ── */
-
-function TokenBudgetSlider() {
-  const { ref, isIntersecting } = useIntersectionObserver({ threshold: 0.3 });
-
-  return (
-    <div ref={ref}>
-      <span className="mb-3 block font-mono text-[10px] uppercase tracking-widest text-white/35">
-        Token Budget
-      </span>
-      <div className="flex items-center gap-3">
-        <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.08]">
-          {/* Animated fill */}
-          <div
-            className="h-full rounded-full bg-indigo-500/60 transition-all duration-[1.8s] ease-out"
-            style={{ width: isIntersecting ? "33%" : "0%" }}
-          />
-          {/* Thumb / cursor that drags the bar */}
-          <div
-            className="absolute top-1/2 -translate-y-1/2 transition-all duration-[1.8s] ease-out"
-            style={{ left: isIntersecting ? "33%" : "0%" }}
-          >
-            <div className="relative -ml-2">
-              {/* Cursor icon */}
-              <svg
-                width="16"
-                height="20"
-                viewBox="0 0 16 20"
-                fill="none"
-                className={`drop-shadow-[0_0_6px_rgba(129,140,248,0.4)] transition-opacity duration-500 ${
-                  isIntersecting ? "opacity-100" : "opacity-0"
-                }`}
-                style={{ transitionDelay: "200ms" }}
-              >
-                <path
-                  d="M1 1L1 13.5L4.5 10.5L7 16L9.5 15L7 9L11 9L1 1Z"
-                  fill="white"
-                  fillOpacity="0.9"
-                  stroke="white"
-                  strokeOpacity="0.2"
-                  strokeWidth="0.5"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-        {/* Animated counter */}
-        <span className="w-12 text-right font-mono text-[11px] text-white/45">
-          <TokenCounter target={10000} animate={isIntersecting} />
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function TokenCounter({ target, animate }: { target: number; animate: boolean }) {
-  const [value, setValue] = React.useState(0);
-
-  React.useEffect(() => {
-    if (!animate) return;
-    const duration = 1800;
-    const start = performance.now();
-    let raf: number;
-
-    function tick(now: number) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(Math.round(target * eased));
-      if (progress < 1) raf = requestAnimationFrame(tick);
-    }
-
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [animate, target]);
-
-  return <>{value.toLocaleString()}</>;
-}
-
 /* ── Visual: Repo Map + Context ── */
 
 function RepoMapVisual() {
@@ -301,7 +219,6 @@ function RepoMapVisual() {
       {/* Context settings */}
       <div className="space-y-5">
         <TokenBudgetSlider />
-
         <div>
           <span className="mb-3 block font-mono text-[10px] uppercase tracking-widest text-white/35">
             Excluded
