@@ -189,3 +189,13 @@ body {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-4px); }
 }
+
+/* React Flow overrides for dark theme */
+.react-flow__background {
+  display: none !important;
+}
+.react-flow__minimap,
+.react-flow__controls,
+.react-flow__panel {
+  display: none !important;
+}

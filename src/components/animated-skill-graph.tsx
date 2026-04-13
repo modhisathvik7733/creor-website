@@ -1,14 +1,132 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import {
+  ReactFlow,
+  type Node,
+  type Edge,
+  type NodeProps,
+  Handle,
+  Position,
+  useNodesState,
+  useEdgesState,
+  BaseEdge,
+  getStraightPath,
+  type EdgeProps,
+} from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
+
+/* ── Custom Node ── */
+
+function SkillNode({ data }: NodeProps) {
+  const d = data as { label: string; sub?: string; active?: boolean; type?: string };
+  const isRoot = d.type === "root";
+  const isLeaf = d.type === "leaf";
+  const active = d.active;
+
+  return (
+    <div
+      className={`rounded-md border px-3 py-1.5 text-center transition-all duration-700 ${
+        active
+          ? "border-indigo-400/50 bg-indigo-500/[0.15]"
+          : isRoot
+            ? "border-white/[0.12] bg-white/[0.06]"
+            : "border-white/[0.08] bg-white/[0.04]"
+      }`}
+    >
+      <Handle type="target" position={Position.Top} className="!bg-transparent !border-0 !w-0 !h-0" />
+      <div className={`font-mono ${isLeaf ? "text-[8px]" : "text-[10px]"} font-medium transition-colors duration-700 ${
+        active ? "text-indigo-300/90" : isRoot ? "text-indigo-300/70" : "text-white/40"
+      }`}>
+        {d.label}
+      </div>
+      {d.sub && <div className="text-[8px] text-white/25">{d.sub}</div>}
+      {active && !isLeaf && (
+        <div className="mt-0.5 animate-pulse text-[7px] text-indigo-400/60">
+          context pulled
+        </div>
+      )}
+      <Handle type="source" position={Position.Bottom} className="!bg-transparent !border-0 !w-0 !h-0" />
+    </div>
+  );
+}
+
+/* ── Custom Animated Edge ── */
+
+function AnimatedEdge({ id, sourceX, sourceY, targetX, targetY, data, ...rest }: EdgeProps) {
+  const d = data as { active?: boolean } | undefined;
+  const [edgePath] = getStraightPath({ sourceX, sourceY, targetX, targetY });
+
+  return (
+    <>
+      <BaseEdge
+        id={id}
+        path={edgePath}
+        style={{
+          stroke: d?.active ? "rgba(129,140,248,0.5)" : "rgba(255,255,255,0.08)",
+          strokeWidth: d?.active ? 1.5 : 1,
+          transition: "stroke 0.7s ease, stroke-width 0.7s ease",
+        }}
+      />
+      {d?.active && (
+        <circle r="3" fill="#818cf8" opacity="0.8">
+          <animateMotion dur="1.5s" repeatCount="indefinite" path={edgePath} />
+        </circle>
+      )}
+    </>
+  );
+}
+
+const nodeTypes = { skill: SkillNode };
+const edgeTypes = { animated: AnimatedEdge };
+
+/* ── Node/Edge Definitions ── */
+
+const initialNodes: Node[] = [
+  { id: "root", type: "skill", position: { x: 150, y: 0 }, data: { label: "SKILL.md", sub: "Auth system", type: "root" } },
+  { id: "oauth", type: "skill", position: { x: 0, y: 80 }, data: { label: "oauth-flow", type: "child" } },
+  { id: "jwt", type: "skill", position: { x: 140, y: 80 }, data: { label: "jwt-tokens", type: "child" } },
+  { id: "mw", type: "skill", position: { x: 290, y: 80 }, data: { label: "middleware", type: "child" } },
+  { id: "google", type: "skill", position: { x: -30, y: 155 }, data: { label: "google-sso", type: "leaf" } },
+  { id: "github", type: "skill", position: { x: 55, y: 155 }, data: { label: "github-oauth", type: "leaf" } },
+  { id: "refresh", type: "skill", position: { x: 115, y: 155 }, data: { label: "refresh-flow", type: "leaf" } },
+  { id: "verify", type: "skill", position: { x: 200, y: 155 }, data: { label: "verify", type: "leaf" } },
+  { id: "rate", type: "skill", position: { x: 265, y: 155 }, data: { label: "rate-limit", type: "leaf" } },
+  { id: "cors", type: "skill", position: { x: 345, y: 155 }, data: { label: "cors-policy", type: "leaf" } },
+];
+
+const initialEdges: Edge[] = [
+  { id: "e-root-oauth", source: "root", target: "oauth", type: "animated" },
+  { id: "e-root-jwt", source: "root", target: "jwt", type: "animated" },
+  { id: "e-root-mw", source: "root", target: "mw", type: "animated" },
+  { id: "e-oauth-google", source: "oauth", target: "google", type: "animated" },
+  { id: "e-oauth-github", source: "oauth", target: "github", type: "animated" },
+  { id: "e-jwt-refresh", source: "jwt", target: "refresh", type: "animated" },
+  { id: "e-jwt-verify", source: "jwt", target: "verify", type: "animated" },
+  { id: "e-mw-rate", source: "mw", target: "rate", type: "animated" },
+  { id: "e-mw-cors", source: "mw", target: "cors", type: "animated" },
+];
+
+/* ── Main Component ── */
 
 type Phase = "idle" | "query" | "traverse" | "found" | "response";
 
 export function AnimatedSkillGraph() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState<Phase>("idle");
+  const [nodes, setNodes] = useNodesState(initialNodes);
+  const [edges, setEdges] = useEdgesState(initialEdges);
   const started = useRef(false);
 
+  const past = useCallback(
+    (target: Phase) => {
+      const order: Phase[] = ["idle", "query", "traverse", "found", "response"];
+      return order.indexOf(phase) >= order.indexOf(target);
+    },
+    [phase]
+  );
+
+  // Trigger animation on scroll
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -20,8 +138,8 @@ export function AnimatedSkillGraph() {
           observer.disconnect();
           setTimeout(() => setPhase("query"), 300);
           setTimeout(() => setPhase("traverse"), 1200);
-          setTimeout(() => setPhase("found"), 2000);
-          setTimeout(() => setPhase("response"), 2800);
+          setTimeout(() => setPhase("found"), 2200);
+          setTimeout(() => setPhase("response"), 3000);
         }
       },
       { threshold: 0.1, rootMargin: "-80px 0px" }
@@ -31,10 +149,27 @@ export function AnimatedSkillGraph() {
     return () => observer.disconnect();
   }, []);
 
-  const past = (target: Phase) => {
-    const order: Phase[] = ["idle", "query", "traverse", "found", "response"];
-    return order.indexOf(phase) >= order.indexOf(target);
-  };
+  // Update nodes/edges when phase changes
+  useEffect(() => {
+    const activeNodeIds = past("found") ? new Set(["root", "jwt", "refresh", "verify"]) : past("traverse") ? new Set(["root"]) : new Set<string>();
+    const activeEdgeIds = past("traverse")
+      ? new Set(past("found") ? ["e-root-jwt", "e-jwt-refresh", "e-jwt-verify"] : ["e-root-jwt"])
+      : new Set<string>();
+
+    setNodes((nds) =>
+      nds.map((n) => ({
+        ...n,
+        data: { ...n.data, active: activeNodeIds.has(n.id) },
+      }))
+    );
+
+    setEdges((eds) =>
+      eds.map((e) => ({
+        ...e,
+        data: { ...e.data, active: activeEdgeIds.has(e.id) },
+      }))
+    );
+  }, [phase, past, setNodes, setEdges]);
 
   return (
     <div ref={containerRef}>
@@ -42,9 +177,9 @@ export function AnimatedSkillGraph() {
         Skill Graph
       </span>
 
-      {/* Query input */}
+      {/* Query */}
       <div
-        className={`mb-5 rounded-md border px-3 py-2 font-mono text-[10px] transition-all duration-500 ${
+        className={`mb-4 rounded-md border px-3 py-2 font-mono text-[10px] transition-all duration-500 ${
           past("query")
             ? "border-indigo-500/25 bg-indigo-500/[0.05] text-white/50 opacity-100"
             : "border-white/[0.06] text-white/20 opacity-0"
@@ -54,135 +189,25 @@ export function AnimatedSkillGraph() {
         How does JWT verification work?
       </div>
 
-      {/* Tree with SVG connections */}
-      <div className="relative" style={{ height: 180 }}>
-        <svg
-          className="absolute inset-0 h-full w-full"
-          viewBox="0 0 400 180"
-          fill="none"
-          preserveAspectRatio="xMidYMid meet"
-        >
-          {/* Root to children lines */}
-          {/* Root -> oauth */}
-          <line
-            x1="200" y1="30" x2="70" y2="90"
-            className={`transition-all duration-500 ${past("traverse") ? "stroke-white/15" : "stroke-white/[0.06]"}`}
-            strokeWidth="1"
-          />
-          {/* Root -> jwt (active path) */}
-          <line
-            x1="200" y1="30" x2="200" y2="90"
-            className={`transition-all duration-500 ${
-              past("traverse") ? "stroke-indigo-500/50" : "stroke-white/[0.06]"
-            }`}
-            strokeWidth={past("traverse") ? 1.5 : 1}
-          />
-          {/* Root -> middleware */}
-          <line
-            x1="200" y1="30" x2="330" y2="90"
-            className={`transition-all duration-500 ${past("traverse") ? "stroke-white/15" : "stroke-white/[0.06]"}`}
-            strokeWidth="1"
-          />
-          {/* jwt -> children */}
-          <line
-            x1="175" y1="110" x2="155" y2="150"
-            className={`transition-all duration-700 ${past("found") ? "stroke-indigo-500/30" : "stroke-white/[0.04]"}`}
-            strokeWidth="1"
-          />
-          <line
-            x1="225" y1="110" x2="245" y2="150"
-            className={`transition-all duration-700 ${past("found") ? "stroke-indigo-500/30" : "stroke-white/[0.04]"}`}
-            strokeWidth="1"
-          />
-          {/* oauth -> children */}
-          <line x1="50" y1="110" x2="30" y2="150" className="stroke-white/[0.06]" strokeWidth="1" />
-          <line x1="90" y1="110" x2="110" y2="150" className="stroke-white/[0.06]" strokeWidth="1" />
-          {/* middleware -> children */}
-          <line x1="310" y1="110" x2="290" y2="150" className="stroke-white/[0.06]" strokeWidth="1" />
-          <line x1="350" y1="110" x2="370" y2="150" className="stroke-white/[0.06]" strokeWidth="1" />
-
-          {/* Animated pulse dot traveling down the active path */}
-          {phase === "traverse" && (
-            <circle r="3" fill="#818cf8" opacity="0.8">
-              <animateMotion dur="0.8s" fill="freeze" path="M200,30 L200,90" />
-            </circle>
-          )}
-        </svg>
-
-        {/* Root node */}
-        <div
-          className="absolute left-1/2 top-0 -translate-x-1/2"
-          style={{ width: 120 }}
-        >
-          <div
-            className={`rounded-md border px-3 py-1.5 text-center transition-all duration-500 ${
-              past("traverse")
-                ? "border-indigo-400/40 bg-indigo-500/[0.10]"
-                : "border-white/[0.10] bg-white/[0.05]"
-            }`}
-          >
-            <div className="text-[10px] font-medium text-indigo-300/80">SKILL.md</div>
-            <div className="text-[8px] text-white/30">Auth system</div>
-          </div>
-        </div>
-
-        {/* Child: oauth-flow */}
-        <div className="absolute top-[80px]" style={{ left: "5%", width: 100 }}>
-          <div className="rounded-md border border-white/[0.08] bg-white/[0.04] px-2 py-1.5 text-center">
-            <div className="font-mono text-[9px] text-white/35">oauth-flow</div>
-          </div>
-        </div>
-
-        {/* Child: jwt-tokens (ACTIVE) */}
-        <div className="absolute left-1/2 top-[80px] -translate-x-1/2" style={{ width: 110 }}>
-          <div
-            className={`rounded-md border px-2 py-1.5 text-center transition-all duration-500 ${
-              past("found")
-                ? "border-indigo-400/50 bg-indigo-500/[0.15]"
-                : past("traverse")
-                  ? "border-indigo-500/25 bg-indigo-500/[0.06]"
-                  : "border-white/[0.08] bg-white/[0.04]"
-            }`}
-          >
-            <div className={`font-mono text-[9px] transition-colors duration-500 ${past("found") ? "text-indigo-300/90" : "text-white/35"}`}>
-              jwt-tokens
-            </div>
-            {past("found") && (
-              <div className="mt-0.5 text-[7px] text-indigo-400/60 animate-pulse">
-                pulling context...
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Child: middleware */}
-        <div className="absolute top-[80px]" style={{ right: "5%", width: 100 }}>
-          <div className="rounded-md border border-white/[0.08] bg-white/[0.04] px-2 py-1.5 text-center">
-            <div className="font-mono text-[9px] text-white/35">middleware</div>
-          </div>
-        </div>
-
-        {/* Grandchildren: oauth */}
-        <div className="absolute top-[140px] flex gap-1" style={{ left: "0%" }}>
-          <div className="rounded border border-white/[0.06] bg-white/[0.03] px-1.5 py-0.5 font-mono text-[7px] text-white/20">google-sso</div>
-          <div className="rounded border border-white/[0.06] bg-white/[0.03] px-1.5 py-0.5 font-mono text-[7px] text-white/20">github-oauth</div>
-        </div>
-
-        {/* Grandchildren: jwt (ACTIVE) */}
-        <div className="absolute left-1/2 top-[140px] -translate-x-1/2 flex gap-1">
-          <div className={`rounded border px-1.5 py-0.5 font-mono text-[7px] transition-all duration-500 ${
-            past("found") ? "border-indigo-500/25 bg-indigo-500/[0.06] text-indigo-300/60" : "border-white/[0.06] bg-white/[0.03] text-white/20"
-          }`}>refresh-flow</div>
-          <div className={`rounded border px-1.5 py-0.5 font-mono text-[7px] transition-all duration-500 ${
-            past("found") ? "border-indigo-500/25 bg-indigo-500/[0.06] text-indigo-300/60" : "border-white/[0.06] bg-white/[0.03] text-white/20"
-          }`}>verify</div>
-        </div>
-
-        {/* Grandchildren: middleware */}
-        <div className="absolute top-[140px] flex gap-1" style={{ right: "0%" }}>
-          <div className="rounded border border-white/[0.06] bg-white/[0.03] px-1.5 py-0.5 font-mono text-[7px] text-white/20">rate-limit</div>
-          <div className="rounded border border-white/[0.06] bg-white/[0.03] px-1.5 py-0.5 font-mono text-[7px] text-white/20">cors-policy</div>
-        </div>
+      {/* React Flow graph */}
+      <div className="h-[210px] w-full overflow-hidden rounded-md">
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          fitView
+          fitViewOptions={{ padding: 0.2 }}
+          panOnDrag={false}
+          zoomOnScroll={false}
+          zoomOnPinch={false}
+          zoomOnDoubleClick={false}
+          nodesDraggable={false}
+          nodesConnectable={false}
+          elementsSelectable={false}
+          proOptions={{ hideAttribution: true }}
+          className="!bg-transparent"
+        />
       </div>
 
       {/* Response */}

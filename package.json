@@ -12,6 +12,7 @@
   "dependencies": {
     "@sentry/react": "^10.47.0",
     "@supabase/supabase-js": "^2.99.0",
+    "@xyflow/react": "^12.10.2",
     "clsx": "^2.1.1",
     "lucide-react": "^0.576.0",
     "motion": "^12.38.0",
