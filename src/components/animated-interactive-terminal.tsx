@@ -204,7 +204,7 @@ function MockTerminal({
       </div>
 
       {/* Terminal body */}
-      <div className="relative min-h-[180px] px-3 py-2.5 font-mono text-[11px] leading-[20px] sm:min-h-[200px]">
+      <div className="relative min-h-[290px] px-3 py-2.5 font-mono text-[11px] leading-[20px] sm:min-h-[290px]">
         {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
           <motion.div
             key={i}
@@ -334,7 +334,7 @@ export function AnimatedInteractiveTerminal() {
     <div ref={containerRef}>
       <div className="grid items-start gap-6 md:grid-cols-2">
         {/* Left: Agent context */}
-        <div className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-4">
+        <div className="min-h-[340px] rounded-lg border border-white/[0.06] bg-white/[0.02] p-4 sm:min-h-[320px]">
           <AgentContextPanel phase={phase} />
         </div>
 

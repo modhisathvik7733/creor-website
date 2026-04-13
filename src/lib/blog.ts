@@ -21,18 +21,25 @@ export interface BlogPost extends BlogListItem {
 }
 
 export async function fetchBlogPosts(): Promise<BlogListItem[]> {
-  const res = await fetch(`${API_BASE}/api/blog`, { cache: "no-store" });
-  if (!res.ok) throw new Error("Failed to fetch blog posts");
-  const data = await res.json();
-  return data.posts;
+  try {
+    const res = await fetch(`${API_BASE}/api/blog`, { cache: "no-store" });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.posts;
+  } catch {
+    return [];
+  }
 }
 
 export async function fetchBlogPost(slug: string): Promise<BlogPost | null> {
-  const res = await fetch(`${API_BASE}/api/blog/${slug}`, { cache: "no-store" });
-  if (res.status === 404) return null;
-  if (!res.ok) throw new Error("Failed to fetch blog post");
-  const data = await res.json();
-  return data.post;
+  try {
+    const res = await fetch(`${API_BASE}/api/blog/${slug}`, { cache: "no-store" });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.post;
+  } catch {
+    return null;
+  }
 }
 
 export async function fetchBlogSlugs(): Promise<string[]> {
