@@ -18,8 +18,8 @@ function AgentCard({
 }) {
   return (
     <FadeIn delay={delay}>
-      <div className="flex h-full flex-col rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 transition-colors hover:border-white/[0.12] hover:bg-white/[0.04]">
-        <span className="mb-6 font-mono text-[10px] uppercase tracking-widest text-white/20">
+      <div className="flex h-full flex-col rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.02] p-6 transition-colors hover:border-white/[0.15] hover:from-white/[0.06] hover:to-white/[0.03]">
+        <span className="mb-6 font-mono text-[10px] uppercase tracking-widest text-white/30">
           {fig}
         </span>
         <div className="mb-8 flex flex-1 items-center justify-center px-4 py-8">
@@ -37,18 +37,18 @@ function AgentCard({
 function BuildAgentVisual() {
   return (
     <div className="w-full max-w-[200px] space-y-1.5 font-mono text-[10px]">
-      <div className="rounded bg-white/[0.04] px-3 py-1.5 text-white/30">
-        <span className="text-purple-400/60">const</span>{" "}
-        <span className="text-indigo-300/60">app</span>{" "}
-        <span className="text-white/20">= express()</span>
+      <div className="rounded bg-white/[0.07] px-3 py-1.5 text-white/45">
+        <span className="text-purple-400/80">const</span>{" "}
+        <span className="text-indigo-300/80">app</span>{" "}
+        <span className="text-white/35">= express()</span>
       </div>
-      <div className="rounded border-l-2 border-red-500/40 bg-red-500/[0.06] px-3 py-1.5 text-white/25">
+      <div className="rounded border-l-2 border-red-400/50 bg-red-500/[0.10] px-3 py-1.5 text-white/40">
         app.get(&quot;/api&quot;, handler)
       </div>
-      <div className="rounded border-l-2 border-emerald-500/40 bg-emerald-500/[0.06] px-3 py-1.5 text-white/35">
+      <div className="rounded border-l-2 border-emerald-400/50 bg-emerald-500/[0.10] px-3 py-1.5 text-white/50">
         app.get(&quot;/api/v2&quot;, authMiddleware, handler)
       </div>
-      <div className="rounded bg-white/[0.04] px-3 py-1.5 text-white/30">
+      <div className="rounded bg-white/[0.07] px-3 py-1.5 text-white/45">
         app.listen(3000)
       </div>
     </div>
@@ -58,21 +58,21 @@ function BuildAgentVisual() {
 function PlanAgentVisual() {
   return (
     <div className="w-full max-w-[200px] space-y-2 font-mono text-[10px]">
-      <div className="rounded bg-white/[0.04] px-3 py-2 text-white/30">
-        <span className="text-amber-400/50">##</span>{" "}
-        <span className="text-white/40">Implementation Plan</span>
+      <div className="rounded bg-white/[0.07] px-3 py-2 text-white/45">
+        <span className="text-amber-400/70">##</span>{" "}
+        <span className="text-white/55">Implementation Plan</span>
       </div>
       {["Refactor auth middleware", "Add rate limiting", "Update API tests"].map(
         (item, i) => (
           <div
             key={i}
-            className="flex items-center gap-2 rounded bg-white/[0.03] px-3 py-1.5 text-white/30"
+            className="flex items-center gap-2 rounded bg-white/[0.06] px-3 py-1.5 text-white/45"
           >
             <span
               className={`h-3 w-3 shrink-0 rounded border ${
                 i === 0
-                  ? "border-emerald-500/40 bg-emerald-500/20"
-                  : "border-white/10"
+                  ? "border-emerald-400/50 bg-emerald-500/30"
+                  : "border-white/15"
               }`}
             />
             {item}
@@ -88,22 +88,22 @@ function ExploreAgentVisual() {
     <div className="relative w-full max-w-[200px]">
       {/* Nodes */}
       <div className="flex flex-col items-center gap-3">
-        <div className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3 py-1 text-[9px] text-indigo-300/60">
+        <div className="rounded-full border border-indigo-400/40 bg-indigo-500/15 px-3 py-1 text-[9px] text-indigo-300/80">
           useAuth.ts
         </div>
         <div className="flex w-full justify-between px-2">
-          <div className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[9px] text-white/30">
+          <div className="rounded-full border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[9px] text-white/45">
             session.ts
           </div>
-          <div className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[9px] text-white/30">
+          <div className="rounded-full border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[9px] text-white/45">
             token.ts
           </div>
         </div>
         <div className="flex w-full justify-center gap-6">
-          <div className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[9px] text-white/30">
+          <div className="rounded-full border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[9px] text-white/45">
             db.ts
           </div>
-          <div className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[9px] text-white/30">
+          <div className="rounded-full border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[9px] text-white/45">
             crypto.ts
           </div>
         </div>
@@ -114,10 +114,10 @@ function ExploreAgentVisual() {
         viewBox="0 0 200 100"
         fill="none"
       >
-        <line x1="100" y1="15" x2="50" y2="42" stroke="white" strokeOpacity="0.06" />
-        <line x1="100" y1="15" x2="150" y2="42" stroke="white" strokeOpacity="0.06" />
-        <line x1="50" y1="50" x2="65" y2="80" stroke="white" strokeOpacity="0.06" />
-        <line x1="150" y1="50" x2="135" y2="80" stroke="white" strokeOpacity="0.06" />
+        <line x1="100" y1="15" x2="50" y2="42" stroke="white" strokeOpacity="0.12" />
+        <line x1="100" y1="15" x2="150" y2="42" stroke="white" strokeOpacity="0.12" />
+        <line x1="50" y1="50" x2="65" y2="80" stroke="white" strokeOpacity="0.12" />
+        <line x1="150" y1="50" x2="135" y2="80" stroke="white" strokeOpacity="0.12" />
       </svg>
     </div>
   );
