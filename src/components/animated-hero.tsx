@@ -64,7 +64,7 @@ export function AnimatedHero() {
           </span>
         </h1>
 
-        <p className="mx-auto mt-6 max-w-lg text-[15px] leading-relaxed text-white/40">
+        <p className="mx-auto mt-6 max-w-lg text-[17px] leading-relaxed text-white/40">
           Specialized agents write, plan, and search — across your entire
           codebase, with any model.
         </p>
@@ -72,14 +72,14 @@ export function AnimatedHero() {
         <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/waitlist"
-            className="glow-pulse group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-[14px] font-semibold text-background transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="glow-pulse group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-[16px] font-semibold text-background transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             Join Waitlist
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
           <Link
             href="/docs"
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-6 py-2.5 text-[14px] font-medium text-white/70 transition-colors hover:bg-white/5"
+            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-6 py-2.5 text-[16px] font-medium text-white/70 transition-colors hover:bg-white/5"
           >
             Read the Docs
           </Link>

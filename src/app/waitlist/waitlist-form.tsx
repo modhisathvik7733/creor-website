@@ -66,7 +66,7 @@ export function WaitlistForm() {
         <h3 className="text-lg font-semibold text-emerald-300">
           You&apos;re on the list!
         </h3>
-        <p className="mx-auto mt-2 max-w-sm text-[14px] text-white/40">
+        <p className="mx-auto mt-2 max-w-sm text-[16px] text-white/40">
           We&apos;ll notify you at{" "}
           <span className="font-medium text-white/60">{email}</span> as soon as
           Creor is ready to download.
@@ -84,12 +84,12 @@ export function WaitlistForm() {
           placeholder="you@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-3.5 text-[14px] text-white placeholder:text-white/25 outline-none transition-colors focus:border-indigo-500/40 focus:bg-white/[0.06]"
+          className="flex-1 rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-3.5 text-[16px] text-white placeholder:text-white/25 outline-none transition-colors focus:border-indigo-500/40 focus:bg-white/[0.06]"
         />
         <button
           type="submit"
           disabled={status === "loading"}
-          className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-[14px] font-semibold text-black transition-all hover:bg-white/90 active:scale-[0.98] disabled:opacity-60"
+          className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-[16px] font-semibold text-black transition-all hover:bg-white/90 active:scale-[0.98] disabled:opacity-60"
         >
           {status === "loading" ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -102,9 +102,9 @@ export function WaitlistForm() {
         </button>
       </div>
       {status === "error" && (
-        <p className="mt-2 text-[12px] text-red-400/70">{errorMsg}</p>
+        <p className="mt-2 text-[14px] text-red-400/70">{errorMsg}</p>
       )}
-      <p className="mt-3 text-center text-[11px] text-white/20">
+      <p className="mt-3 text-center text-[13px] text-white/20">
         No spam. One email when we launch. That&apos;s it.
       </p>
     </form>

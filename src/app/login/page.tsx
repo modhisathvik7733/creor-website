@@ -220,7 +220,7 @@ function LoginContent() {
         </svg>
 
         {/* Top-left logo */}
-        <Link href="/" className="absolute top-10 left-10 z-10 flex items-center gap-2.5">
+        <Link href="/" className="absolute top-10 left-10 z-10 flex items-center gap-2.5 transition-opacity hover:opacity-70">
           <Image src="/creor-nobg-icon.png" alt="Creor" width={36} height={36} className="h-9 w-9" />
           <span className="text-lg font-semibold tracking-tight">Creor</span>
         </Link>

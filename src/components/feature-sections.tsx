@@ -33,8 +33,8 @@ function AgentCard({
         <div className="mb-8 flex flex-1 items-center justify-center px-4 py-8">
           {children}
         </div>
-        <h3 className="mb-2 text-[15px] font-semibold text-white">{title}</h3>
-        <p className="text-[13px] leading-relaxed text-white/40">
+        <h3 className="mb-2 text-[17px] font-semibold text-white">{title}</h3>
+        <p className="text-[15px] leading-relaxed text-white/40">
           {description}
         </p>
       </div>
@@ -210,10 +210,10 @@ function FeatureSection({
               </h2>
             </div>
             <div className={reverse ? "md:order-1" : ""}>
-              <p className="mb-4 text-[14px] leading-relaxed text-white/40">
+              <p className="mb-4 text-[16px] leading-relaxed text-white/40">
                 {description}
               </p>
-              <span className="text-[13px] font-medium text-white/50">
+              <span className="text-[15px] font-medium text-white/50">
                 {label}
               </span>
             </div>
@@ -511,7 +511,7 @@ export function FeatureSections() {
             <h2 className="mb-3 text-center text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Agents that specialize
             </h2>
-            <p className="mx-auto mb-14 max-w-lg text-center text-[14px] leading-relaxed text-white/40">
+            <p className="mx-auto mb-14 max-w-lg text-center text-[16px] leading-relaxed text-white/40">
               Not one AI, but many. Each agent has its own permissions, tools, and purpose. Auto-routing picks the right one.
             </p>
           </FadeIn>

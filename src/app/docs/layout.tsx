@@ -244,15 +244,15 @@ export default function DocsLayout({
       {/* Top Navbar */}
       <header className="sticky top-0 z-50 flex h-[52px] items-center justify-between border-b border-[#222222] bg-[#0E0E0E]/95 px-4 backdrop-blur-md">
         <div className="flex h-full items-center gap-6">
-          <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
+          <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-80">
             <Image
               src="/creor-nobg-icon.png"
               alt="Creor"
-              width={20}
-              height={20}
-              className="invert"
+              width={32}
+              height={32}
+              className="h-8 w-8"
             />
-            <span className="text-[15px] font-semibold tracking-tight">Creor</span>
+            <span className="text-[16px] font-bold tracking-tight">Creor</span>
           </Link>
           <nav className="hidden h-full items-center gap-1 md:flex">
             <Link

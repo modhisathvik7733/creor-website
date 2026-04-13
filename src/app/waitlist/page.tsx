@@ -307,7 +307,7 @@ export default function WaitlistPage() {
           <div className="mx-auto max-w-[700px] text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/[0.06] px-4 py-1.5">
               <span className="h-2 w-2 animate-pulse rounded-full bg-indigo-400" />
-              <span className="text-[12px] font-medium text-indigo-400">
+              <span className="text-[14px] font-medium text-indigo-400">
                 Launching soon
               </span>
             </div>
@@ -317,7 +317,7 @@ export default function WaitlistPage() {
                 Creor
               </span>
             </h1>
-            <p className="mx-auto mt-5 max-w-lg text-[16px] leading-relaxed text-white/40">
+            <p className="mx-auto mt-5 max-w-lg text-[18px] leading-relaxed text-white/40">
               The AI-native code editor with specialized agents, BYOK support,
               and full control over every action. Join the waitlist.
             </p>
@@ -339,16 +339,16 @@ export default function WaitlistPage() {
             <div className="overflow-hidden rounded-2xl border border-amber-500/20 bg-[#141416]">
               <div className="flex items-center gap-2 border-b border-amber-500/10 bg-amber-500/[0.06] px-4 py-2">
                 <Gift className="h-4 w-4 text-amber-400" />
-                <span className="text-[11px] font-semibold text-amber-300">
+                <span className="text-[13px] font-semibold text-amber-300">
                   Early Bird
                 </span>
-                <span className="ml-auto rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 text-[10px] font-semibold text-amber-300">
+                <span className="ml-auto rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 text-[12px] font-semibold text-amber-300">
                   First 500
                 </span>
               </div>
               <div className="p-5">
                 <h3 className="text-2xl font-bold text-white/85">3 months free</h3>
-                <p className="mt-1 text-[13px] text-white/35">
+                <p className="mt-1 text-[15px] text-white/35">
                   BYOK plan worth{" "}
                   <span className="line-through text-white/20">$27</span>{" "}
                   <span className="font-bold text-amber-400">$0</span>
@@ -357,28 +357,28 @@ export default function WaitlistPage() {
                   <div className="rounded-lg border border-indigo-500/15 bg-indigo-500/[0.06] p-3">
                     <div className="flex items-center gap-2">
                       <Key className="h-3.5 w-3.5 text-indigo-400/70" />
-                      <span className="text-[11px] font-medium text-white/60">Bring Your Own Key</span>
+                      <span className="text-[13px] font-medium text-white/60">Bring Your Own Key</span>
                     </div>
-                    <p className="mt-1 text-[10px] text-white/25">
+                    <p className="mt-1 text-[12px] text-white/25">
                       Any provider. No caps. $9/mo after.
                     </p>
                   </div>
                   <div className="rounded-lg border border-white/[0.06] bg-white/[0.04] p-3">
                     <div className="flex items-center gap-2">
                       <Users className="h-3.5 w-3.5 text-emerald-400/70" />
-                      <span className="text-[11px] font-medium text-white/60">Creor Auth</span>
+                      <span className="text-[13px] font-medium text-white/60">Creor Auth</span>
                     </div>
-                    <p className="mt-1 text-[10px] text-white/25">
+                    <p className="mt-1 text-[12px] text-white/25">
                       GitHub/Google login. Managed access.
                     </p>
                   </div>
                 </div>
                 <div className="mt-4 rounded-lg border border-amber-500/15 bg-amber-500/[0.06] px-4 py-3">
                   <div className="flex items-center gap-2.5">
-                    <span className="text-[15px]">🎟</span>
-                    <span className="text-[13px] font-semibold text-amber-300/90">Free coupon emailed at launch</span>
+                    <span className="text-[17px]">🎟</span>
+                    <span className="text-[15px] font-semibold text-amber-300/90">Free coupon emailed at launch</span>
                   </div>
-                  <p className="mt-1 pl-[30px] text-[11px] text-white/30">
+                  <p className="mt-1 pl-[30px] text-[13px] text-white/30">
                     First 500 signups get a 3-month BYOK coupon — no card needed.
                   </p>
                 </div>
@@ -387,7 +387,7 @@ export default function WaitlistPage() {
 
             {/* What's included */}
             <div className="rounded-2xl border border-white/[0.08] bg-[#141416] p-5">
-              <h2 className="mb-4 text-[14px] font-semibold text-white/60">
+              <h2 className="mb-4 text-[16px] font-semibold text-white/60">
                 What&apos;s included
               </h2>
               <div className="space-y-3">
@@ -403,7 +403,7 @@ export default function WaitlistPage() {
                 ].map((f) => (
                   <div key={f} className="flex items-center gap-2.5">
                     <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-400/60" />
-                    <span className="text-[12px] text-white/40">{f}</span>
+                    <span className="text-[14px] text-white/40">{f}</span>
                   </div>
                 ))}
               </div>
@@ -413,7 +413,7 @@ export default function WaitlistPage() {
             <div className="flex flex-col gap-5">
               {/* Platforms */}
               <div className="rounded-2xl border border-white/[0.08] bg-[#141416] p-5">
-                <h2 className="mb-3 text-[14px] font-semibold text-white/60">
+                <h2 className="mb-3 text-[16px] font-semibold text-white/60">
                   Available on
                 </h2>
                 <div className="space-y-2">
@@ -427,8 +427,8 @@ export default function WaitlistPage() {
                     >
                       <p.icon className="h-5 w-5 text-white/30" />
                       <div>
-                        <p className="text-[12px] font-medium text-white/50">{p.name}</p>
-                        <p className="text-[10px] text-white/20">{p.desc}</p>
+                        <p className="text-[14px] font-medium text-white/50">{p.name}</p>
+                        <p className="text-[12px] text-white/20">{p.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -437,7 +437,7 @@ export default function WaitlistPage() {
 
               {/* How it works */}
               <div className="flex-1 rounded-2xl border border-white/[0.08] bg-[#141416] p-5">
-                <h2 className="mb-4 text-[14px] font-semibold text-white/60">
+                <h2 className="mb-4 text-[16px] font-semibold text-white/60">
                   How it works
                 </h2>
                 <div className="space-y-4">
@@ -448,10 +448,10 @@ export default function WaitlistPage() {
                     { step: "4", text: "Download, paste your API key, start coding" },
                   ].map((s) => (
                     <div key={s.step} className="flex items-start gap-3">
-                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-[10px] font-bold text-white/40">
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-[12px] font-bold text-white/40">
                         {s.step}
                       </span>
-                      <span className="text-[12px] text-white/35">{s.text}</span>
+                      <span className="text-[14px] text-white/35">{s.text}</span>
                     </div>
                   ))}
                 </div>
@@ -478,7 +478,7 @@ export default function WaitlistPage() {
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
             Download Creor
           </h1>
-          <p className="mx-auto mt-4 max-w-md text-[16px] text-white/40">
+          <p className="mx-auto mt-4 max-w-md text-[18px] text-white/40">
             The AI-native code editor. Multi-provider, built for speed.
           </p>
         </div>
@@ -492,7 +492,7 @@ export default function WaitlistPage() {
               className="group relative flex flex-col items-center gap-4 rounded-xl border border-white/[0.08] bg-white/[0.02] p-6 text-center transition-all hover:border-white/[0.15] hover:bg-white/[0.04]"
             >
               {p.recommended && (
-                <span className="absolute -top-2.5 rounded-full bg-indigo-500/20 px-2.5 py-0.5 text-[10px] font-medium text-indigo-400">
+                <span className="absolute -top-2.5 rounded-full bg-indigo-500/20 px-2.5 py-0.5 text-[12px] font-medium text-indigo-400">
                   Recommended
                 </span>
               )}
@@ -500,10 +500,10 @@ export default function WaitlistPage() {
                 <p.icon className="h-5 w-5 text-white/50" />
               </div>
               <div>
-                <p className="text-[14px] font-semibold">{p.name}</p>
-                <p className="mt-0.5 text-[12px] text-white/30">{p.desc}</p>
+                <p className="text-[16px] font-semibold">{p.name}</p>
+                <p className="mt-0.5 text-[14px] text-white/30">{p.desc}</p>
               </div>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.10] bg-white/[0.04] px-4 py-1.5 text-[12px] font-medium text-white/60 transition-all group-hover:border-white/[0.20] group-hover:bg-white/[0.08]">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.10] bg-white/[0.04] px-4 py-1.5 text-[14px] font-medium text-white/60 transition-all group-hover:border-white/[0.20] group-hover:bg-white/[0.08]">
                 <Download className="h-3.5 w-3.5" />
                 Download
               </span>
@@ -518,7 +518,7 @@ export default function WaitlistPage() {
             {FEATURES.map((f) => (
               <div key={f} className="flex items-start gap-2.5">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400/60" />
-                <span className="text-[13px] text-white/45">{f}</span>
+                <span className="text-[15px] text-white/45">{f}</span>
               </div>
             ))}
           </div>
@@ -529,27 +529,27 @@ export default function WaitlistPage() {
           <h2 className="text-lg font-semibold">System Requirements</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div>
-              <p className="text-[12px] font-medium uppercase tracking-wider text-white/30">
+              <p className="text-[14px] font-medium uppercase tracking-wider text-white/30">
                 macOS
               </p>
-              <ul className="mt-2 space-y-1.5 text-[13px] text-white/40">
+              <ul className="mt-2 space-y-1.5 text-[15px] text-white/40">
                 <li>macOS 12+ (Monterey or later)</li>
                 <li>Apple Silicon or Intel</li>
                 <li>4 GB RAM minimum</li>
               </ul>
             </div>
             <div>
-              <p className="text-[12px] font-medium uppercase tracking-wider text-white/30">
+              <p className="text-[14px] font-medium uppercase tracking-wider text-white/30">
                 Windows
               </p>
-              <ul className="mt-2 space-y-1.5 text-[13px] text-white/40">
+              <ul className="mt-2 space-y-1.5 text-[15px] text-white/40">
                 <li>Windows 10/11 (64-bit)</li>
                 <li>x64 processor</li>
                 <li>4 GB RAM minimum</li>
               </ul>
             </div>
           </div>
-          <p className="mt-5 text-[12px] text-white/20">
+          <p className="mt-5 text-[14px] text-white/20">
             500 MB disk space required. 8 GB RAM recommended for large projects.
           </p>
         </div>
@@ -557,15 +557,15 @@ export default function WaitlistPage() {
         {/* Install via terminal */}
         <div className="mt-6 rounded-xl border border-white/[0.08] bg-white/[0.02] p-8">
           <h2 className="text-lg font-semibold">Or install via terminal</h2>
-          <p className="mt-1.5 text-[13px] text-white/30">
+          <p className="mt-1.5 text-[15px] text-white/30">
             One command. Auto-detects your OS and architecture.
           </p>
           <div className="mt-4 rounded-lg bg-[#111113] px-4 py-3">
-            <code className="font-mono text-[13px] text-emerald-400/70">
+            <code className="font-mono text-[15px] text-emerald-400/70">
               curl -fsSL https://creor.ai/install.sh | sh
             </code>
           </div>
-          <p className="mt-3 text-[11px] text-white/20">
+          <p className="mt-3 text-[13px] text-white/20">
             Works on macOS (Apple Silicon &amp; Intel) and Windows (via WSL or
             Git Bash).
           </p>

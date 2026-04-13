@@ -21,14 +21,14 @@ export function Footer() {
                 Creor
               </span>
             </Link>
-            <p className="mt-3 max-w-[200px] text-[13px] leading-relaxed text-white/30">
+            <p className="mt-3 max-w-[200px] text-[14px] leading-relaxed text-white/30">
               The AI-native code editor. Ship faster with agents that understand your codebase.
             </p>
           </div>
 
           {/* Link columns */}
-          <div className="text-[13px]">
-            <p className="mb-4 text-[12px] font-medium uppercase tracking-wider text-white/50">Product</p>
+          <div className="text-[14px]">
+            <p className="mb-4 text-[13px] font-medium uppercase tracking-wider text-white/50">Product</p>
             <div className="space-y-3 text-white/30">
               <Link href="/waitlist" className="block transition-colors hover:text-white/70">
                 Join Waitlist
@@ -41,8 +41,8 @@ export function Footer() {
               </Link>
             </div>
           </div>
-          <div className="text-[13px]">
-            <p className="mb-4 text-[12px] font-medium uppercase tracking-wider text-white/50">Resources</p>
+          <div className="text-[14px]">
+            <p className="mb-4 text-[13px] font-medium uppercase tracking-wider text-white/50">Resources</p>
             <div className="space-y-3 text-white/30">
               <Link href="/docs" className="block transition-colors hover:text-white/70">
                 Docs
@@ -55,8 +55,8 @@ export function Footer() {
               </Link>
             </div>
           </div>
-          <div className="text-[13px]">
-            <p className="mb-4 text-[12px] font-medium uppercase tracking-wider text-white/50">Company</p>
+          <div className="text-[14px]">
+            <p className="mb-4 text-[13px] font-medium uppercase tracking-wider text-white/50">Company</p>
             <div className="space-y-3 text-white/30">
               <Link href="/about" className="block transition-colors hover:text-white/70">
                 About
@@ -69,8 +69,8 @@ export function Footer() {
               </Link>
             </div>
           </div>
-          <div className="text-[13px]">
-            <p className="mb-4 text-[12px] font-medium uppercase tracking-wider text-white/50">Connect</p>
+          <div className="text-[14px]">
+            <p className="mb-4 text-[13px] font-medium uppercase tracking-wider text-white/50">Connect</p>
             <div className="space-y-3 text-white/30">
               <a
                 href="https://twitter.com"
@@ -88,7 +88,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-6 text-[12px] text-white/25 sm:flex-row">
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-6 text-[13px] text-white/25 sm:flex-row">
           <p>
             &copy; 2026 Creor &middot;{" "}
             <span className="italic text-white/15">Latin: to be created</span>

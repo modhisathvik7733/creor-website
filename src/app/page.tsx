@@ -77,7 +77,7 @@ export default function Home() {
             <h2 className="mb-3 text-center text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Get started in minutes
             </h2>
-            <p className="mx-auto mb-14 max-w-md text-center text-[14px] leading-relaxed text-white/40">
+            <p className="mx-auto mb-14 max-w-md text-center text-[16px] leading-relaxed text-white/40">
               From download to shipping code — three steps.
             </p>
           </FadeIn>
@@ -94,14 +94,14 @@ export default function Home() {
                       <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-indigo-500/20 bg-indigo-500/[0.08]">
                         <Icon className="h-[18px] w-[18px] text-indigo-400/70" />
                       </div>
-                      <span className="font-mono text-[12px] font-medium text-white/15">
+                      <span className="font-mono text-[14px] font-medium text-white/15">
                         Step {item.step}
                       </span>
                     </div>
-                    <h3 className="mb-2 text-[16px] font-semibold text-white">
+                    <h3 className="mb-2 text-[18px] font-semibold text-white">
                       {item.title}
                     </h3>
-                    <p className="text-[13px] leading-relaxed text-white/40">
+                    <p className="text-[15px] leading-relaxed text-white/40">
                       {item.description}
                     </p>
                   </div>
@@ -116,20 +116,20 @@ export default function Home() {
               <h3 className="mb-3 text-2xl font-bold tracking-tight sm:text-3xl">
                 Ship faster. Stay in control.
               </h3>
-              <p className="mb-8 text-[14px] text-foreground-secondary">
+              <p className="mb-8 text-[16px] text-foreground-secondary">
                 Join the waitlist. Be the first to try Creor.
               </p>
               <div className="flex justify-center gap-3">
                 <Link
                   href="/waitlist"
-                  className="glow-pulse group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-[14px] font-semibold text-background transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  className="glow-pulse group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-[16px] font-semibold text-background transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                   Join Waitlist
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   href="/pricing"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border px-6 py-2.5 text-[14px] font-medium text-foreground transition-colors hover:bg-muted"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border px-6 py-2.5 text-[16px] font-medium text-foreground transition-colors hover:bg-muted"
                 >
                   See Pricing
                 </Link>

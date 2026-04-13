@@ -12,6 +12,7 @@ import {
   Newspaper,
   FileText,
 } from "lucide-react";
+import { useAuth } from "@/lib/auth";
 
 interface DropdownItem {
   label: string;
@@ -84,10 +85,10 @@ function Dropdown({
                 <item.icon className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-background" />
               </div>
               <div className="min-w-0 pt-0.5">
-                <p className="text-[13px] font-medium text-foreground">
+                <p className="text-[14px] font-medium text-foreground">
                   {item.label}
                 </p>
-                <p className="text-[11px] leading-snug text-muted-foreground">
+                <p className="text-[12px] leading-snug text-muted-foreground">
                   {item.description}
                 </p>
               </div>
@@ -102,9 +103,11 @@ function Dropdown({
 function MobileMenu({
   isOpen,
   onClose,
+  user,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  user: { name: string } | null;
 }) {
   const pathname = usePathname();
 
@@ -128,7 +131,7 @@ function MobileMenu({
           <div key={item.label} className="border-b border-white/[0.05] py-4">
             {"items" in item && item.items ? (
               <>
-                <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
                   {item.label}
                 </p>
                 <div className="space-y-0.5">
@@ -137,7 +140,7 @@ function MobileMenu({
                       key={sub.href}
                       href={sub.href}
                       onClick={onClose}
-                      className="flex items-center gap-2.5 rounded-md px-2 py-2 text-[14px] text-foreground hover:bg-muted"
+                      className="flex items-center gap-2.5 rounded-md px-2 py-2 text-[15px] text-foreground hover:bg-muted"
                     >
                       <sub.icon className="h-3.5 w-3.5 text-muted-foreground" />
                       {sub.label}
@@ -149,7 +152,7 @@ function MobileMenu({
               <Link
                 href={item.href!}
                 onClick={onClose}
-                className="block text-[14px] font-medium text-foreground"
+                className="block text-[15px] font-medium text-foreground"
               >
                 {item.label}
               </Link>
@@ -157,20 +160,32 @@ function MobileMenu({
           </div>
         ))}
         <div className="mt-auto space-y-3 pt-6">
-          <Link
-            href="/login"
-            onClick={onClose}
-            className="block w-full rounded-full bg-foreground py-2.5 text-center text-[13px] font-semibold text-background transition-transform active:scale-95"
-          >
-            Sign in
-          </Link>
-          <Link
-            href="/waitlist"
-            onClick={onClose}
-            className="block w-full rounded-full border border-white/10 bg-white/5 py-2.5 text-center text-[13px] font-medium text-foreground transition-transform active:scale-95"
-          >
-            Join Waitlist
-          </Link>
+          {user ? (
+            <Link
+              href="/dashboard"
+              onClick={onClose}
+              className="block w-full rounded-full bg-foreground py-2.5 text-center text-[14px] font-semibold text-background transition-transform active:scale-95"
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                onClick={onClose}
+                className="block w-full rounded-full bg-foreground py-2.5 text-center text-[14px] font-semibold text-background transition-transform active:scale-95"
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/waitlist"
+                onClick={onClose}
+                className="block w-full rounded-full border border-white/10 bg-white/5 py-2.5 text-center text-[14px] font-medium text-foreground transition-transform active:scale-95"
+              >
+                Join Waitlist
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -178,6 +193,7 @@ function MobileMenu({
 }
 
 export function Navbar() {
+  const { user } = useAuth();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -234,7 +250,7 @@ export function Navbar() {
               : "mt-0 md:mt-5 rounded-none border-transparent bg-transparent shadow-none backdrop-blur-none"
           )}
         >
-          <div className="relative flex h-14 w-full items-center px-6">
+          <div className="relative flex h-14 w-full items-center px-3 md:px-6">
             {/* Left: Logo */}
             <div className="flex items-center">
               <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-70">
@@ -271,7 +287,7 @@ export function Navbar() {
                           )
                         }
                         className={cn(
-                          "flex items-center gap-1 rounded-md px-3 py-1.5 text-[14px] font-medium transition-colors",
+                          "flex items-center gap-1 rounded-md px-3 py-1.5 text-[15px] font-medium transition-colors",
                           openDropdown === item.label
                             ? "text-white"
                             : "text-white/55 hover:text-white"
@@ -298,7 +314,7 @@ export function Navbar() {
                   <Link
                     key={item.label}
                     href={item.href!}
-                    className="rounded-md px-3 py-1.5 text-[14px] font-medium text-white/55 transition-colors hover:text-white"
+                    className="rounded-md px-3 py-1.5 text-[15px] font-medium text-white/55 transition-colors hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -308,18 +324,29 @@ export function Navbar() {
 
             {/* Right: CTA */}
             <div className="ml-auto hidden items-center gap-3 md:flex">
-              <Link
-                href="/waitlist"
-                className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-[13px] font-semibold text-black transition-colors hover:bg-white/90 active:scale-[0.97]"
-              >
-                Join Waitlist
-              </Link>
-              <Link
-                href="/login"
-                className="inline-flex items-center rounded-full border border-white/[0.15] bg-white/[0.08] px-4 py-1.5 text-[13px] font-medium text-white/90 transition-colors hover:bg-white/[0.14] active:scale-[0.97]"
-              >
-                Sign in
-              </Link>
+              {user ? (
+                <Link
+                  href="/dashboard"
+                  className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-[14px] font-semibold text-black transition-colors hover:bg-white/90 active:scale-[0.97]"
+                >
+                  Dashboard
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    href="/waitlist"
+                    className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-[14px] font-semibold text-black transition-colors hover:bg-white/90 active:scale-[0.97]"
+                  >
+                    Join Waitlist
+                  </Link>
+                  <Link
+                    href="/login"
+                    className="inline-flex items-center rounded-full border border-white/[0.15] bg-white/[0.08] px-4 py-1.5 text-[14px] font-medium text-white/90 transition-colors hover:bg-white/[0.14] active:scale-[0.97]"
+                  >
+                    Sign in
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Mobile toggle */}
@@ -340,7 +367,7 @@ export function Navbar() {
         </nav>
       </div>
 
-      <MobileMenu isOpen={mobileOpen} onClose={closeMobile} />
+      <MobileMenu isOpen={mobileOpen} onClose={closeMobile} user={user} />
     </>
   );
 }

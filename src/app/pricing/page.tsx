@@ -88,7 +88,7 @@ export default function PricingPage() {
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
               Simple, transparent pricing
             </h1>
-            <p className="mt-4 text-[15px] leading-relaxed text-white/40 sm:text-lg">
+            <p className="mt-4 text-[17px] leading-relaxed text-white/40 sm:text-lg">
               Use Creor free with your own API keys, or subscribe for the Creor
               Gateway — one key, all models. Pay only for what you use.
             </p>
@@ -111,7 +111,7 @@ export default function PricingPage() {
                 {/* Badge */}
                 {plan.badge && (
                   <div className="absolute -top-3 left-6">
-                    <span className="rounded-full bg-indigo-500/20 px-3 py-1 text-[11px] font-medium text-indigo-300">
+                    <span className="rounded-full bg-indigo-500/20 px-3 py-1 text-[13px] font-medium text-indigo-300">
                       {plan.badge}
                     </span>
                   </div>
@@ -119,8 +119,8 @@ export default function PricingPage() {
 
                 {/* Header */}
                 <div className="mb-5">
-                  <h2 className="text-[17px] font-semibold text-white">{plan.name}</h2>
-                  <p className="mt-1 text-[12px] text-white/35">{plan.desc}</p>
+                  <h2 className="text-[19px] font-semibold text-white">{plan.name}</h2>
+                  <p className="mt-1 text-[14px] text-white/35">{plan.desc}</p>
                 </div>
 
                 {/* Price */}
@@ -128,15 +128,15 @@ export default function PricingPage() {
                   {plan.price === 0 ? (
                     <div className="flex items-baseline gap-1">
                       <span className="text-3xl font-bold tracking-tight text-white">Free</span>
-                      <span className="text-[12px] text-white/25">forever</span>
+                      <span className="text-[14px] text-white/25">forever</span>
                     </div>
                   ) : (
                     <div className="flex items-baseline gap-1">
-                      <span className="text-[12px] text-white/25">$</span>
+                      <span className="text-[14px] text-white/25">$</span>
                       <span className="text-3xl font-bold tracking-tight text-white">
                         {plan.price}
                       </span>
-                      <span className="text-[12px] text-white/25">{plan.period}</span>
+                      <span className="text-[14px] text-white/25">{plan.period}</span>
                     </div>
                   )}
                 </div>
@@ -144,7 +144,7 @@ export default function PricingPage() {
                 {/* CTA */}
                 <Link
                   href={plan.href}
-                  className={`group mb-6 flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-[13px] font-medium transition-all ${
+                  className={`group mb-6 flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-[15px] font-medium transition-all ${
                     plan.highlighted
                       ? "bg-white text-black hover:bg-white/90"
                       : "border border-white/[0.1] bg-white/[0.04] text-white/80 hover:border-white/[0.2] hover:bg-white/[0.08]"
@@ -162,7 +162,7 @@ export default function PricingPage() {
                   {plan.features.map((f) => (
                     <li
                       key={f}
-                      className="flex items-start gap-2 text-[12px] leading-relaxed text-white/45"
+                      className="flex items-start gap-2 text-[14px] leading-relaxed text-white/45"
                     >
                       <Check className={`mt-0.5 h-3.5 w-3.5 flex-shrink-0 ${
                         plan.highlighted ? "text-indigo-400/70" : "text-white/25"
@@ -178,7 +178,7 @@ export default function PricingPage() {
       </section>
 
       {/* Footer note */}
-      <div className="border-t border-white/[0.06] px-6 py-8 text-center text-[12px] text-white/20">
+      <div className="border-t border-white/[0.06] px-6 py-8 text-center text-[14px] text-white/20">
         All prices in USD. Billed monthly. Cancel anytime. Extra usage billed at pay-as-you-go rates.
       </div>
     </div>
