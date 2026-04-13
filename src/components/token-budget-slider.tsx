@@ -7,31 +7,47 @@ const INITIAL_TOKENS = 10000;
 
 export function TokenBudgetSlider() {
   const [tokens, setTokens] = useState(0);
-  const [animatedIn, setAnimatedIn] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const fillRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLDivElement>(null);
+  const counterRef = useRef<HTMLSpanElement>(null);
   const dragging = useRef(false);
+  const animatedIn = useRef(false);
 
-  // Custom observer — only fires when element is well within the viewport
+  // Animate from 0 to 10k using direct DOM updates (no React re-renders)
   useEffect(() => {
     const el = containerRef.current;
-    if (!el || animatedIn) return;
+    if (!el) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !animatedIn) {
+        if (entry.isIntersecting && !animatedIn.current) {
+          animatedIn.current = true;
           observer.disconnect();
-          setAnimatedIn(true);
 
           const duration = 1400;
           const start = performance.now();
+          const targetPct = (INITIAL_TOKENS / MAX_TOKENS) * 100;
 
           function tick(now: number) {
             const elapsed = now - start;
             const progress = Math.min(elapsed / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
-            setTokens(Math.round(INITIAL_TOKENS * eased));
-            if (progress < 1) requestAnimationFrame(tick);
+            const currentPct = targetPct * eased;
+            const currentTokens = Math.round(INITIAL_TOKENS * eased);
+
+            // Direct DOM updates — no setState, no re-renders
+            if (fillRef.current) fillRef.current.style.width = `${currentPct}%`;
+            if (thumbRef.current) thumbRef.current.style.left = `${currentPct}%`;
+            if (counterRef.current) counterRef.current.textContent = currentTokens.toLocaleString();
+
+            if (progress < 1) {
+              requestAnimationFrame(tick);
+            } else {
+              // Sync React state at the end so dragging works correctly
+              setTokens(INITIAL_TOKENS);
+            }
           }
 
           requestAnimationFrame(tick);
@@ -42,7 +58,7 @@ export function TokenBudgetSlider() {
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [animatedIn]);
+  }, []);
 
   const updateFromPointer = useCallback((clientX: number) => {
     const track = trackRef.current;
@@ -88,26 +104,20 @@ export function TokenBudgetSlider() {
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
         >
-          {/* Fill */}
           <div
+            ref={fillRef}
             className="pointer-events-none h-full rounded-full bg-indigo-500/60"
-            style={{
-              width: `${pct}%`,
-              transition: dragging.current ? "none" : "width 0.15s ease-out",
-            }}
+            style={{ width: `${pct}%` }}
           />
-          {/* Thumb */}
           <div
+            ref={thumbRef}
             className="absolute top-1/2 -translate-y-1/2 pointer-events-none"
-            style={{
-              left: `${pct}%`,
-              transition: dragging.current ? "none" : "left 0.15s ease-out",
-            }}
+            style={{ left: `${pct}%` }}
           >
             <div className="-ml-2 h-4 w-4 rounded-full border-2 border-indigo-400/60 bg-indigo-500/30" />
           </div>
         </div>
-        <span className="w-14 text-right font-mono text-[11px] tabular-nums text-white/45">
+        <span ref={counterRef} className="w-14 text-right font-mono text-[11px] tabular-nums text-white/45">
           {tokens.toLocaleString()}
         </span>
       </div>
