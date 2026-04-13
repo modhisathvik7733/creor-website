@@ -353,77 +353,105 @@ function ToolsMCPVisual() {
 
 function HooksPermissionsVisual() {
   const permissions = [
-    { tool: "edit", level: "allow" },
-    { tool: "bash", level: "ask" },
-    { tool: "read *.env", level: "ask" },
-    { tool: "write", level: "allow" },
-    { tool: "delete", level: "deny" },
+    { tool: "edit", pattern: "**/*", level: "allow", desc: "Full write access to all files" },
+    { tool: "bash", pattern: "*", level: "ask", desc: "Prompt before running shell commands" },
+    { tool: "read", pattern: "*.env, *.key", level: "ask", desc: "Protect secrets and credentials" },
+    { tool: "write", pattern: "src/**", level: "allow", desc: "Write access to source directory" },
+    { tool: "delete", pattern: "**/*", level: "deny", desc: "Block all file deletions" },
   ];
 
   const hooks = [
-    { event: "tool.execute.before", enabled: true },
-    { event: "session.start", enabled: true },
-    { event: "tool.execute.failure", enabled: false },
-    { event: "shell.env", enabled: true },
+    { event: "tool.execute.before", desc: "Validate tool calls before running", enabled: true },
+    { event: "session.start", desc: "Initialize context on new session", enabled: true },
+    { event: "tool.execute.failure", desc: "Alert on tool errors", enabled: false },
+    { event: "shell.env", desc: "Inject env vars into shell", enabled: true },
   ];
 
+  const levelColors = {
+    allow: { bg: "bg-emerald-500/10", text: "text-emerald-400/70", border: "border-emerald-500/20", icon: "✓" },
+    ask: { bg: "bg-amber-500/10", text: "text-amber-400/70", border: "border-amber-500/20", icon: "?" },
+    deny: { bg: "bg-red-500/10", text: "text-red-400/70", border: "border-red-500/20", icon: "✕" },
+  };
+
   return (
-    <div className="grid gap-8 md:grid-cols-2">
+    <div className="grid items-start gap-10 md:grid-cols-2">
       {/* Permissions */}
       <div>
-        <span className="mb-3 block font-mono text-[10px] uppercase tracking-widest text-white/35">
-          Permissions
-        </span>
-        <div className="space-y-1">
-          {permissions.map((p) => (
-            <div
-              key={p.tool}
-              className="flex items-center justify-between rounded bg-white/[0.06] px-3 py-1.5"
-            >
-              <span className="font-mono text-[11px] text-white/45">
-                {p.tool}
-              </span>
-              <span
-                className={`rounded px-2 py-0.5 text-[9px] font-medium ${
-                  p.level === "allow"
-                    ? "bg-emerald-500/10 text-emerald-400/60"
-                    : p.level === "ask"
-                      ? "bg-amber-500/10 text-amber-400/60"
-                      : "bg-red-500/10 text-red-400/60"
-                }`}
+        <div className="mb-3 flex items-center justify-between">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-white/35">
+            Permissions
+          </span>
+          <span className="rounded-full bg-white/[0.06] px-2 py-0.5 font-mono text-[9px] text-white/30">
+            5 rules
+          </span>
+        </div>
+        <div className="space-y-1.5">
+          {permissions.map((p) => {
+            const c = levelColors[p.level as keyof typeof levelColors];
+            return (
+              <div
+                key={p.tool + p.pattern}
+                className="rounded-lg border border-white/[0.06] bg-white/[0.04] px-3 py-2.5 transition-colors hover:border-white/[0.12] hover:bg-white/[0.06]"
               >
-                {p.level}
-              </span>
-            </div>
-          ))}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className={`flex h-5 w-5 items-center justify-center rounded ${c.bg} text-[9px] font-bold ${c.text}`}>
+                      {c.icon}
+                    </div>
+                    <span className="font-mono text-[11px] text-white/50">
+                      {p.tool}
+                    </span>
+                    <span className="rounded bg-white/[0.04] px-1.5 py-0.5 font-mono text-[8px] text-white/20">
+                      {p.pattern}
+                    </span>
+                  </div>
+                  <span className={`rounded-full border ${c.border} ${c.bg} px-2 py-0.5 text-[9px] font-medium ${c.text}`}>
+                    {p.level}
+                  </span>
+                </div>
+                <div className="mt-1 pl-7 text-[9px] text-white/20">{p.desc}</div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
       {/* Hooks */}
       <div>
-        <span className="mb-3 block font-mono text-[10px] uppercase tracking-widest text-white/35">
-          Hooks
-        </span>
-        <div className="space-y-1">
+        <div className="mb-3 flex items-center justify-between">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-white/35">
+            Hooks
+          </span>
+          <span className="rounded-full bg-indigo-500/10 px-2 py-0.5 font-mono text-[9px] text-indigo-400/50">
+            3 active
+          </span>
+        </div>
+        <div className="space-y-1.5">
           {hooks.map((h) => (
             <div
               key={h.event}
-              className="flex items-center justify-between rounded bg-white/[0.06] px-3 py-1.5"
+              className="rounded-lg border border-white/[0.06] bg-white/[0.04] px-3 py-2.5 transition-colors hover:border-white/[0.12] hover:bg-white/[0.06]"
             >
-              <span className="font-mono text-[11px] text-white/45">
-                {h.event}
-              </span>
-              <div
-                className={`h-4 w-7 rounded-full p-0.5 ${
-                  h.enabled ? "bg-indigo-500/40" : "bg-white/[0.08]"
-                }`}
-              >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className={`h-1.5 w-1.5 rounded-full ${h.enabled ? "bg-indigo-500/60" : "bg-white/15"}`} />
+                  <span className="font-mono text-[11px] text-white/50">
+                    {h.event}
+                  </span>
+                </div>
                 <div
-                  className={`h-3 w-3 rounded-full bg-white/60 transition-transform ${
-                    h.enabled ? "translate-x-3" : ""
+                  className={`h-5 w-9 rounded-full p-0.5 transition-colors ${
+                    h.enabled ? "bg-indigo-500/40" : "bg-white/[0.08]"
                   }`}
-                />
+                >
+                  <div
+                    className={`h-4 w-4 rounded-full transition-transform ${
+                      h.enabled ? "translate-x-4 bg-indigo-400/80" : "bg-white/40"
+                    }`}
+                  />
+                </div>
               </div>
+              <div className="mt-1 pl-[18px] text-[9px] text-white/20">{h.desc}</div>
             </div>
           ))}
         </div>
