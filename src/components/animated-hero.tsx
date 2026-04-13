@@ -74,7 +74,7 @@ export function AnimatedHero() {
             href="/download"
             className="glow-pulse group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-[14px] font-semibold text-background transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
-            Download for Free
+            Join Waitlist
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
           <Link

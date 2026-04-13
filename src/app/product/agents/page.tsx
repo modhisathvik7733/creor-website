@@ -58,7 +58,7 @@ export default function AgentsPage() {
           href="/download"
           className="group mt-12 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90"
         >
-          Download Creor
+          Join Waitlist
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </Link>
       </main>
