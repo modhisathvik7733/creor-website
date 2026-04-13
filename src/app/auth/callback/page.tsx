@@ -7,6 +7,13 @@ import { api } from "@/lib/api";
 import { GridBackground } from "@/components/grid-background";
 import { Suspense } from "react";
 
+function isValidRedirect(url: string): boolean {
+  if (!url || !url.startsWith('/')) return false;
+  if (url.startsWith('//')) return false;  // protocol-relative URLs
+  if (url.includes('://')) return false;
+  return true;
+}
+
 function CallbackContent() {
   const searchParams = useSearchParams();
   const { login } = useAuth();
@@ -17,7 +24,8 @@ function CallbackContent() {
   const provider = useMemo(() => searchParams.get("provider"), [searchParams]);
   const stateRedirect = useMemo(() => {
     const s = searchParams.get("state");
-    return s ? decodeURIComponent(s) : "/dashboard";
+    const decoded = s ? decodeURIComponent(s) : "/dashboard";
+    return isValidRedirect(decoded) ? decoded : "/dashboard";
   }, [searchParams]);
 
   useEffect(() => {

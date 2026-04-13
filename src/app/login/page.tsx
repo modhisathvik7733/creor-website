@@ -118,11 +118,19 @@ function FunTerminal() {
   );
 }
 
+function isValidRedirect(url: string): boolean {
+  if (!url || !url.startsWith('/')) return false;
+  if (url.startsWith('//')) return false;  // protocol-relative URLs
+  if (url.includes('://')) return false;
+  return true;
+}
+
 function LoginContent() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("redirect") ?? "/dashboard";
+  const rawRedirect = searchParams.get("redirect") ?? "/dashboard";
+  const redirectTo = isValidRedirect(rawRedirect) ? rawRedirect : "/dashboard";
 
   useEffect(() => {
     if (!loading && user) {
