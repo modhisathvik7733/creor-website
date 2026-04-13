@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Download, Apple, Monitor, CheckCircle2 } from "lucide-react";
+import { Download, Apple, Monitor, CheckCircle2, Gift, Sparkles, Key, Users } from "lucide-react";
 import { generatePageMetadata } from "@/lib/metadata";
 import { WaitlistForm } from "./waitlist-form";
 
@@ -60,11 +60,11 @@ export default function DownloadPage() {
       <div className="min-h-screen bg-background">
         <Navbar />
 
-        <main className="mx-auto max-w-[640px] px-6 pt-32 pb-20">
+        <main className="mx-auto max-w-[720px] px-6 pt-32 pb-20">
           {/* Hero */}
           <div className="text-center">
-            <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-b from-indigo-500/20 to-indigo-500/5">
-              <Download className="h-6 w-6 text-indigo-400" />
+            <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-b from-indigo-500/20 to-indigo-500/5 shadow-[0_0_60px_rgba(129,140,248,0.15)]">
+              <Sparkles className="h-7 w-7 text-indigo-400" />
             </div>
             <span className="inline-block rounded-full bg-indigo-500/15 px-3 py-1 text-[11px] font-medium text-indigo-400">
               Coming Soon
@@ -72,64 +72,111 @@ export default function DownloadPage() {
             <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
               Get early access
             </h1>
-            <p className="mx-auto mt-4 max-w-md text-[16px] leading-relaxed text-white/40">
-              Creor is almost ready. Join the waitlist and be the first to
-              download when we launch.
+            <p className="mx-auto mt-4 max-w-lg text-[16px] leading-relaxed text-white/40">
+              Creor is almost ready. Join the waitlist and be the first to know
+              when we launch.
             </p>
           </div>
 
           {/* Waitlist form */}
           <WaitlistForm />
 
-          {/* What you'll get */}
-          <div className="mt-14 rounded-xl border border-white/[0.08] bg-white/[0.02] p-6">
-            <h2 className="text-[14px] font-semibold text-white/60">
-              What you&apos;ll get
-            </h2>
-            <div className="mt-4 space-y-3">
-              {[
-                {
-                  title: "Early access",
-                  desc: "Be among the first to try Creor before public launch",
-                },
-                {
-                  title: "Platform choice",
-                  desc: "macOS (Apple Silicon & Intel) and Windows on day one",
-                },
-                {
-                  title: "Free to start",
-                  desc: "Bring your own API key and use it unlimited — no charges from us",
-                },
-              ].map((item) => (
-                <div key={item.title} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400/60" />
-                  <div>
-                    <p className="text-[13px] font-medium text-white/55">
-                      {item.title}
-                    </p>
-                    <p className="text-[12px] text-white/25">{item.desc}</p>
+          {/* Early bird offer */}
+          <div className="mt-12 overflow-hidden rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-500/[0.06] to-orange-500/[0.03]">
+            <div className="flex items-center gap-2.5 border-b border-amber-500/10 bg-amber-500/[0.04] px-5 py-2.5">
+              <Gift className="h-4 w-4 text-amber-400" />
+              <span className="text-[12px] font-semibold text-amber-300">
+                Early Bird Reward
+              </span>
+              <span className="ml-auto rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-medium text-amber-400/80">
+                First 500 users
+              </span>
+            </div>
+            <div className="p-5">
+              <h3 className="text-lg font-bold text-white/80">
+                3 months free Pro access
+              </h3>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-white/35">
+                The first 500 waitlist members get a coupon for 3 months of free
+                Creor Pro — delivered to your email when the app launches.
+              </p>
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3.5">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <Key className="h-3.5 w-3.5 text-indigo-400/70" />
+                    <span className="text-[12px] font-medium text-white/60">
+                      BYOK — Unlimited
+                    </span>
                   </div>
+                  <p className="text-[11px] text-white/25">
+                    Bring your own API key from any provider. No usage caps from
+                    us. Your key, your quota.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3.5">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <Users className="h-3.5 w-3.5 text-emerald-400/70" />
+                    <span className="text-[12px] font-medium text-white/60">
+                      Auth — Managed
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-white/25">
+                    Sign in with GitHub or Google. Use Creor&apos;s managed
+                    access to all supported providers.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4 flex items-center gap-3 rounded-lg bg-white/[0.03] px-4 py-2.5">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500/15">
+                  <span className="text-[14px]">🎟</span>
+                </div>
+                <div className="flex-1">
+                  <p className="text-[11px] font-medium text-white/50">
+                    Coupon codes delivered at launch
+                  </p>
+                  <p className="text-[10px] text-white/25">
+                    We&apos;ll email your unique code when Creor is ready to
+                    download
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* What's included */}
+          <div className="mt-8 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
+            <h2 className="text-[14px] font-semibold text-white/60">
+              What&apos;s included in Creor
+            </h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {[
+                "AI agents that write, plan, and debug code",
+                "Works with Claude, GPT-4, Gemini, and more",
+                "25+ built-in tools for file ops, search, and analysis",
+                "MCP support for external integrations",
+                "Your code never leaves your machine",
+                "macOS (Apple Silicon & Intel) + Windows",
+              ].map((f) => (
+                <div key={f} className="flex items-start gap-2.5">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400/60" />
+                  <span className="text-[12px] text-white/40">{f}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Platforms preview */}
-          <div className="mt-6 grid grid-cols-3 gap-3">
+          {/* Platform badges */}
+          <div className="mt-6 flex justify-center gap-3">
             {[
-              { icon: Apple, name: "macOS Silicon", tag: "arm64" },
-              { icon: Apple, name: "macOS Intel", tag: "x64" },
-              { icon: Monitor, name: "Windows", tag: "x64" },
+              { icon: Apple, name: "macOS" },
+              { icon: Monitor, name: "Windows" },
             ].map((p) => (
               <div
                 key={p.name}
-                className="flex flex-col items-center gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] py-5"
+                className="flex items-center gap-2 rounded-full border border-white/[0.06] bg-white/[0.02] px-4 py-2"
               >
-                <p.icon className="h-5 w-5 text-white/30" />
-                <span className="text-[11px] text-white/40">{p.name}</span>
-                <span className="rounded bg-white/[0.06] px-1.5 py-0.5 text-[9px] text-white/20">
-                  {p.tag}
-                </span>
+                <p.icon className="h-4 w-4 text-white/30" />
+                <span className="text-[12px] text-white/40">{p.name}</span>
               </div>
             ))}
           </div>
