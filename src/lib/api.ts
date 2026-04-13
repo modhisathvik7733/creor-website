@@ -19,6 +19,7 @@ class ApiClient {
   ): Promise<T> {
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
+      "X-Creor-Request": "1",
       ...(options.headers as Record<string, string>),
     };
 
