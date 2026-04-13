@@ -32,37 +32,37 @@ const TREE: FileEntry[] = [
 
 function FileIcon({ name }: { name: string }) {
   const ext = name.split(".").pop()?.toLowerCase();
-  let color = "text-white/20";
+  let color = "text-white/30";
   let label = "";
 
   switch (ext) {
     case "ts":
-      color = "text-blue-500/60";
+      color = "text-blue-500/80";
       label = "T";
       break;
     case "jsx":
     case "tsx":
-      color = "text-blue-400/60";
+      color = "text-blue-400/80";
       label = "⚛";
       break;
     case "css":
-      color = "text-purple-400/60";
+      color = "text-purple-400/80";
       label = "#";
       break;
     case "json":
-      color = "text-yellow-400/60";
+      color = "text-yellow-400/80";
       label = "{}";
       break;
     case "md":
-      color = "text-blue-300/60";
+      color = "text-blue-300/80";
       label = "ⓘ";
       break;
     case "sh":
-      color = "text-green-400/60";
+      color = "text-green-400/80";
       label = "$";
       break;
     default:
-      color = "text-white/20";
+      color = "text-white/30";
       label = "◇";
   }
 
@@ -75,24 +75,24 @@ function FileIcon({ name }: { name: string }) {
 
 export function FileExplorer({ activeFile }: { activeFile: string | null }) {
   return (
-    <div className="hidden w-40 shrink-0 flex-col border-r border-white/[0.06] bg-[#0d0d0f] sm:flex lg:w-52">
+    <div className="hidden w-40 shrink-0 flex-col border-r border-white/[0.08] bg-[#141416] sm:flex lg:w-52">
       {/* Explorer header */}
       <div className="flex items-center justify-between px-4 py-2">
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-white/40">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-white/50">
           Explorer
         </span>
-        <MoreHorizontal className="h-4 w-4 text-white/15" />
+        <MoreHorizontal className="h-4 w-4 text-white/25" />
       </div>
 
       {/* Open Editors */}
-      <div className="flex items-center gap-1 px-2 py-1 text-[11px] text-white/30">
-        <ChevronRight className="h-3 w-3 text-white/20" />
+      <div className="flex items-center gap-1 px-2 py-1 text-[11px] text-white/40">
+        <ChevronRight className="h-3 w-3 text-white/30" />
         <span className="uppercase">Open Editors</span>
       </div>
 
       {/* Project name */}
-      <div className="flex items-center gap-1 px-2 py-1 text-[11px] font-semibold text-white/50">
-        <ChevronDown className="h-3 w-3 text-white/30" />
+      <div className="flex items-center gap-1 px-2 py-1 text-[11px] font-semibold text-white/60">
+        <ChevronDown className="h-3 w-3 text-white/40" />
         <span className="uppercase">Ecommerce</span>
       </div>
 
@@ -113,9 +113,9 @@ export function FileExplorer({ activeFile }: { activeFile: string | null }) {
               {/* Chevron or spacer */}
               {entry.type === "folder" ? (
                 entry.open ? (
-                  <ChevronDown className="h-3 w-3 shrink-0 text-white/25" />
+                  <ChevronDown className="h-3 w-3 shrink-0 text-white/35" />
                 ) : (
-                  <ChevronRight className="h-3 w-3 shrink-0 text-white/25" />
+                  <ChevronRight className="h-3 w-3 shrink-0 text-white/35" />
                 )
               ) : (
                 <span className="w-3 shrink-0" />
@@ -125,7 +125,7 @@ export function FileExplorer({ activeFile }: { activeFile: string | null }) {
               {entry.type === "file" ? (
                 <FileIcon name={entry.name} />
               ) : (
-                <span className="w-4 shrink-0 text-center text-[11px] text-amber-400/50">
+                <span className="w-4 shrink-0 text-center text-[11px] text-amber-400/70">
                   ▸
                 </span>
               )}
@@ -134,14 +134,14 @@ export function FileExplorer({ activeFile }: { activeFile: string | null }) {
               <span
                 className={`flex-1 truncate ${
                   isActive
-                    ? "text-white/80"
+                    ? "text-white/90"
                     : entry.git === "M"
-                      ? "text-amber-300/70"
+                      ? "text-amber-300/80"
                       : entry.git === "U"
-                        ? "text-green-400/70"
+                        ? "text-green-400/80"
                         : entry.type === "folder"
-                          ? "text-white/50"
-                          : "text-white/35"
+                          ? "text-white/60"
+                          : "text-white/45"
                 }`}
               >
                 {entry.name}
@@ -171,13 +171,13 @@ export function FileExplorer({ activeFile }: { activeFile: string | null }) {
       </div>
 
       {/* Bottom sections */}
-      <div className="border-t border-white/[0.04]">
-        <div className="flex items-center gap-1 px-3 py-1.5 text-[11px] text-white/25">
-          <ChevronRight className="h-3 w-3 text-white/15" />
+      <div className="border-t border-white/[0.06]">
+        <div className="flex items-center gap-1 px-3 py-1.5 text-[11px] text-white/35">
+          <ChevronRight className="h-3 w-3 text-white/25" />
           <span className="uppercase">Outline</span>
         </div>
-        <div className="flex items-center gap-1 border-t border-white/[0.04] px-3 py-1.5 text-[11px] text-white/25">
-          <ChevronRight className="h-3 w-3 text-white/15" />
+        <div className="flex items-center gap-1 border-t border-white/[0.06] px-3 py-1.5 text-[11px] text-white/35">
+          <ChevronRight className="h-3 w-3 text-white/25" />
           <span className="uppercase">Timeline</span>
         </div>
       </div>

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Download, Apple, Monitor } from "lucide-react";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { Download, Apple, Monitor, CheckCircle2 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Download",
   description:
-    "Download Creor — the AI-native code editor. Available for macOS, Windows, and Linux.",
+    "Download Creor — the AI-native code editor. Available for macOS and Windows.",
   path: "/download",
 });
 
@@ -20,6 +21,7 @@ const PLATFORMS = [
     file: "Creor-darwin-arm64.zip",
     href: `${RELEASE_BASE}/Creor-darwin-arm64.zip`,
     icon: Apple,
+    recommended: true,
   },
   {
     name: "macOS (Intel)",
@@ -27,6 +29,7 @@ const PLATFORMS = [
     file: "Creor-darwin-x64.zip",
     href: `${RELEASE_BASE}/Creor-darwin-x64.zip`,
     icon: Apple,
+    recommended: false,
   },
   {
     name: "Windows",
@@ -34,110 +37,128 @@ const PLATFORMS = [
     file: "Creor-win32-x64.zip",
     href: `${RELEASE_BASE}/Creor-win32-x64.zip`,
     icon: Monitor,
+    recommended: false,
   },
-  {
-    name: "Linux",
-    desc: "tar.gz (64-bit)",
-    file: "Creor-linux-x64.tar.gz",
-    href: `${RELEASE_BASE}/Creor-linux-x64.tar.gz`,
-    icon: Download,
-  },
+];
+
+const FEATURES = [
+  "AI agents that write, plan, and debug code",
+  "Works with Claude, GPT-4, Gemini, and more",
+  "25+ built-in tools for file ops, search, and analysis",
+  "MCP support for external integrations",
+  "Your code never leaves your machine",
 ];
 
 export default function DownloadPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      {/* Nav */}
-      <header className="flex h-14 items-center justify-between border-b border-border px-6">
-        <Link href="/" className="flex items-center gap-2">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="16 18 22 12 16 6" />
-            <polyline points="8 6 2 12 8 18" />
-          </svg>
-          <span className="text-sm font-semibold">Creor</span>
-        </Link>
-        <nav className="flex items-center gap-4">
-          <Link
-            href="/pricing"
-            className="text-sm text-foreground-secondary hover:text-foreground"
-          >
-            Pricing
-          </Link>
-          <Link
-            href="/login"
-            className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground"
-          >
-            Sign In
-          </Link>
-        </nav>
-      </header>
+    <div className="min-h-screen bg-background">
+      <Navbar />
 
-      {/* Hero */}
-      <div className="mx-auto max-w-3xl px-6 py-20 text-center">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          Download Creor
-        </h1>
-        <p className="mt-4 text-lg text-foreground-secondary">
-          The AI-native code editor. Open source, multi-provider, built for
-          speed.
-        </p>
-      </div>
-
-      {/* Download Cards */}
-      <div className="mx-auto grid max-w-3xl gap-4 px-6 pb-20 sm:grid-cols-2">
-        {PLATFORMS.map((p) => (
-          <a
-            key={p.name}
-            href={p.href}
-            className="flex items-center gap-4 rounded-xl border border-border bg-card p-5 text-left transition-colors hover:bg-muted"
-          >
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
-              <p.icon className="h-5 w-5" />
-            </div>
-            <div className="flex-1">
-              <p className="text-sm font-semibold">{p.name}</p>
-              <p className="text-xs text-muted-foreground">{p.desc}</p>
-            </div>
-            <Download className="h-4 w-4 text-muted-foreground" />
-          </a>
-        ))}
-      </div>
-
-      {/* System Requirements */}
-      <div className="mx-auto max-w-3xl px-6 pb-20">
-        <div className="rounded-xl border border-border bg-card p-6">
-          <h2 className="font-semibold">System Requirements</h2>
-          <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
-            <li>macOS 12+ (Monterey or later)</li>
-            <li>Windows 10/11 (64-bit)</li>
-            <li>Linux: Ubuntu 20.04+, Fedora 36+, or equivalent</li>
-            <li>4 GB RAM minimum, 8 GB recommended</li>
-            <li>500 MB disk space</li>
-          </ul>
+      <main className="mx-auto max-w-[900px] px-6 pt-32 pb-20">
+        {/* Hero */}
+        <div className="text-center">
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-b from-white/[0.08] to-white/[0.03] shadow-[0_0_40px_rgba(129,140,248,0.1)]">
+            <Download className="h-7 w-7 text-white/60" />
+          </div>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+            Download Creor
+          </h1>
+          <p className="mx-auto mt-4 max-w-md text-[16px] text-white/40">
+            The AI-native code editor. Multi-provider, built for speed.
+          </p>
         </div>
-      </div>
 
-      {/* Footer */}
-      <footer className="border-t border-border py-8 text-center text-xs text-foreground-secondary">
-        Creor is open source.{" "}
-        <a
-          href="https://github.com/modhisathvik7733/creor-app"
-          className="underline hover:text-foreground"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View on GitHub
-        </a>
-      </footer>
+        {/* Download Cards */}
+        <div className="mt-14 grid gap-4 sm:grid-cols-3">
+          {PLATFORMS.map((p) => (
+            <a
+              key={p.name}
+              href={p.href}
+              className="group relative flex flex-col items-center gap-4 rounded-xl border border-white/[0.08] bg-white/[0.02] p-6 text-center transition-all hover:border-white/[0.15] hover:bg-white/[0.04]"
+            >
+              {p.recommended && (
+                <span className="absolute -top-2.5 rounded-full bg-indigo-500/20 px-2.5 py-0.5 text-[10px] font-medium text-indigo-400">
+                  Recommended
+                </span>
+              )}
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/[0.06] transition-colors group-hover:bg-white/[0.10]">
+                <p.icon className="h-5 w-5 text-white/50" />
+              </div>
+              <div>
+                <p className="text-[14px] font-semibold">{p.name}</p>
+                <p className="mt-0.5 text-[12px] text-white/30">{p.desc}</p>
+              </div>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.10] bg-white/[0.04] px-4 py-1.5 text-[12px] font-medium text-white/60 transition-all group-hover:border-white/[0.20] group-hover:bg-white/[0.08]">
+                <Download className="h-3.5 w-3.5" />
+                Download
+              </span>
+            </a>
+          ))}
+        </div>
+
+        {/* What's included */}
+        <div className="mt-16 rounded-xl border border-white/[0.08] bg-white/[0.02] p-8">
+          <h2 className="text-lg font-semibold">What&apos;s included</h2>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            {FEATURES.map((f) => (
+              <div key={f} className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400/60" />
+                <span className="text-[13px] text-white/45">{f}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* System Requirements */}
+        <div className="mt-6 rounded-xl border border-white/[0.08] bg-white/[0.02] p-8">
+          <h2 className="text-lg font-semibold">System Requirements</h2>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div>
+              <p className="text-[12px] font-medium uppercase tracking-wider text-white/30">
+                macOS
+              </p>
+              <ul className="mt-2 space-y-1.5 text-[13px] text-white/40">
+                <li>macOS 12+ (Monterey or later)</li>
+                <li>Apple Silicon or Intel</li>
+                <li>4 GB RAM minimum</li>
+              </ul>
+            </div>
+            <div>
+              <p className="text-[12px] font-medium uppercase tracking-wider text-white/30">
+                Windows
+              </p>
+              <ul className="mt-2 space-y-1.5 text-[13px] text-white/40">
+                <li>Windows 10/11 (64-bit)</li>
+                <li>x64 processor</li>
+                <li>4 GB RAM minimum</li>
+              </ul>
+            </div>
+          </div>
+          <p className="mt-5 text-[12px] text-white/20">
+            500 MB disk space required. 8 GB RAM recommended for large projects.
+          </p>
+        </div>
+
+        {/* Install via terminal */}
+        <div className="mt-6 rounded-xl border border-white/[0.08] bg-white/[0.02] p-8">
+          <h2 className="text-lg font-semibold">
+            Or install via terminal
+          </h2>
+          <p className="mt-1.5 text-[13px] text-white/30">
+            One command. Auto-detects your OS and architecture.
+          </p>
+          <div className="mt-4 rounded-lg bg-[#111113] px-4 py-3">
+            <code className="font-mono text-[13px] text-emerald-400/70">
+              curl -fsSL https://creor.ai/install.sh | sh
+            </code>
+          </div>
+          <p className="mt-3 text-[11px] text-white/20">
+            Works on macOS (Apple Silicon &amp; Intel) and Windows (via WSL or Git Bash).
+          </p>
+        </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }

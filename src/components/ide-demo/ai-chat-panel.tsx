@@ -27,25 +27,25 @@ function StepIcon({ kind }: { kind: DemoStep["kind"] }) {
   const cls = "h-3.5 w-3.5 shrink-0";
   switch (kind) {
     case "grep":
-      return <Search className={`${cls} text-blue-400/60`} />;
+      return <Search className={`${cls} text-blue-400/80`} />;
     case "read":
-      return <FileText className={`${cls} text-yellow-400/60`} />;
+      return <FileText className={`${cls} text-yellow-400/80`} />;
     case "edit":
-      return <Pencil className={`${cls} text-emerald-400/60`} />;
+      return <Pencil className={`${cls} text-emerald-400/80`} />;
   }
 }
 
 function StepRow({ step }: { step: DemoStep }) {
   return (
-    <div className="flex items-center gap-2 rounded-md bg-white/[0.02] px-2.5 py-1.5">
+    <div className="flex items-center gap-2 rounded-md bg-white/[0.04] px-2.5 py-1.5">
       <StepIcon kind={step.kind} />
-      <span className="flex-1 truncate text-[11px] text-white/50">
+      <span className="flex-1 truncate text-[11px] text-white/60">
         {step.label}
       </span>
       {step.badges?.map((badge) => (
         <span
           key={badge}
-          className="rounded bg-white/[0.04] px-1.5 py-0.5 font-mono text-[9px] text-white/30"
+          className="rounded bg-white/[0.06] px-1.5 py-0.5 font-mono text-[9px] text-white/40"
         >
           {badge}
         </span>
@@ -72,10 +72,10 @@ function WelcomeView() {
         alt="Creor"
         className="mb-3 h-10 w-10 opacity-30"
       />
-      <p className="mb-1 text-[13px] font-medium text-white/50">
+      <p className="mb-1 text-[13px] font-medium text-white/60">
         What can I help you with?
       </p>
-      <div className="mb-4 flex items-center gap-3 text-[9px] text-white/20">
+      <div className="mb-4 flex items-center gap-3 text-[9px] text-white/30">
         <span className="flex items-center gap-1">
           <FileText className="h-3 w-3" /> ecommerce
         </span>
@@ -91,7 +91,7 @@ function WelcomeView() {
         ].map(({ icon: Icon, label }) => (
           <span
             key={label}
-            className="flex items-center gap-1 rounded-full border border-white/[0.08] px-2.5 py-1 text-[10px] text-white/30"
+            className="flex items-center gap-1 rounded-full border border-white/[0.10] px-2.5 py-1 text-[10px] text-white/40"
           >
             <Icon className="h-3 w-3" />
             {label}
@@ -108,24 +108,24 @@ function InputBox({ state }: { state: DemoTimelineState }) {
   const isSending = state.phase === "sent";
 
   return (
-    <div className="border-t border-white/[0.06] px-3 py-2.5">
+    <div className="border-t border-white/[0.08] px-3 py-2.5">
       <div
-        className={`rounded-xl border bg-white/[0.02] px-3 py-2.5 transition-colors ${isTyping ? "border-white/[0.15]" : "border-white/[0.08]"
+        className={`rounded-xl border bg-white/[0.03] px-3 py-2.5 transition-colors ${isTyping ? "border-white/[0.20]" : "border-white/[0.10]"
           }`}
       >
         {/* Typed text or placeholder */}
         <div className="min-h-[20px] text-[12px]">
           {showTypedText ? (
-            <span className="text-white/60">
+            <span className="text-white/70">
               {DEMO_PROMPT.slice(0, state.typedChars)}
-              <span className="ml-0.5 inline-block h-3.5 w-[2px] animate-pulse bg-white/50" />
+              <span className="ml-0.5 inline-block h-3.5 w-[2px] animate-pulse bg-white/60" />
             </span>
           ) : isSending ? (
-            <span className="text-white/10">
+            <span className="text-white/20">
               Ask anything... &quot;Write unit tests for auth&quot;
             </span>
           ) : (
-            <span className="text-white/15">
+            <span className="text-white/25">
               Ask anything... &quot;Write unit tests for auth&quot;
             </span>
           )}
@@ -134,16 +134,16 @@ function InputBox({ state }: { state: DemoTimelineState }) {
         {/* Bottom toolbar */}
         <div className="mt-2 flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <span className="flex items-center gap-1 rounded-md border border-white/[0.06] px-2 py-0.5 text-[10px] text-white/25">
+            <span className="flex items-center gap-1 rounded-md border border-white/[0.08] px-2 py-0.5 text-[10px] text-white/35">
               Build <ChevronDown className="h-2.5 w-2.5" />
             </span>
-            <span className="flex items-center gap-1 rounded-md border border-white/[0.06] px-2 py-0.5 text-[10px] text-white/25">
+            <span className="flex items-center gap-1 rounded-md border border-white/[0.08] px-2 py-0.5 text-[10px] text-white/35">
               Claude Opus 4.6 <ChevronDown className="h-2.5 w-2.5" />
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <Shield className="h-3.5 w-3.5 text-white/15" />
-            <Paperclip className="h-3.5 w-3.5 text-white/15" />
+            <Shield className="h-3.5 w-3.5 text-white/25" />
+            <Paperclip className="h-3.5 w-3.5 text-white/25" />
             <div
               className={`flex h-6 w-6 items-center justify-center rounded-full transition-all ${isTyping && state.typedChars > 0
                 ? "bg-white text-black"
@@ -178,11 +178,11 @@ export function AIChatPanel({ state }: { state: DemoTimelineState }) {
     state.phase === "accepting";
 
   return (
-    <div className="flex w-[260px] shrink-0 flex-col border-l border-white/[0.06] md:w-[320px] lg:w-[380px]">
+    <div className="flex w-[260px] shrink-0 flex-col border-l border-white/[0.08] md:w-[320px] lg:w-[380px]">
       {/* Chat header tab */}
-      <div className="flex items-center border-b border-white/[0.06] bg-[#181818]">
-        <div className="flex items-center gap-2 rounded-t bg-[#0d0d0f] px-3 py-1.5">
-          <span className="text-[11px] text-white/40">
+      <div className="flex items-center border-b border-white/[0.08] bg-[#1e1e20]">
+        <div className="flex items-center gap-2 rounded-t bg-[#141416] px-3 py-1.5">
+          <span className="text-[11px] text-white/50">
             {promptSent ? (
               <>
                 <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-amber-400" />
@@ -192,9 +192,9 @@ export function AIChatPanel({ state }: { state: DemoTimelineState }) {
               "New Chat"
             )}
           </span>
-          <span className="text-[10px] text-white/15">&times;</span>
+          <span className="text-[10px] text-white/25">&times;</span>
         </div>
-        <div className="ml-auto mr-2 flex items-center gap-2 text-white/15">
+        <div className="ml-auto mr-2 flex items-center gap-2 text-white/25">
           <span className="text-[14px]">+</span>
           <span className="text-[11px]">&#9719;</span>
           <span className="text-[10px]">|</span>
@@ -232,9 +232,9 @@ export function AIChatPanel({ state }: { state: DemoTimelineState }) {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="rounded-lg bg-white/[0.05] p-3"
+                  className="rounded-lg bg-white/[0.06] p-3"
                 >
-                  <p className="text-[12px] leading-relaxed text-white/60">
+                  <p className="text-[12px] leading-relaxed text-white/70">
                     {DEMO_PROMPT}
                   </p>
                 </motion.div>
@@ -261,7 +261,7 @@ export function AIChatPanel({ state }: { state: DemoTimelineState }) {
                           />
                         ))}
                       </span>
-                      <span className="text-[11px] text-white/30">
+                      <span className="text-[11px] text-white/40">
                         Running tools
                       </span>
                     </div>
@@ -304,10 +304,10 @@ export function AIChatPanel({ state }: { state: DemoTimelineState }) {
                   transition={{ duration: 0.4 }}
                   className="space-y-1.5"
                 >
-                  <p className="text-[10px] font-semibold text-amber-400/50">
+                  <p className="text-[10px] font-semibold text-amber-400/70">
                     Response
                   </p>
-                  <p className="text-[11px] leading-relaxed text-white/40">
+                  <p className="text-[11px] leading-relaxed text-white/55">
                     {DEMO_RESPONSE}
                   </p>
                 </motion.div>

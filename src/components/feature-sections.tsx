@@ -5,6 +5,8 @@ import { AnimatedSkillGraph } from "@/components/animated-skill-graph";
 import { AnimatedRules } from "@/components/animated-rules";
 import { AnimatedDiffPreview } from "@/components/animated-diff";
 import { AnimatedPermissions } from "@/components/animated-permissions";
+import { AnimatedInteractiveTerminal } from "@/components/animated-interactive-terminal";
+import { AnimatedExploreGraph } from "@/components/animated-explore-graph";
 
 
 /* ── Section 1: Agent Cards ── */
@@ -90,43 +92,7 @@ function PlanAgentVisual() {
 }
 
 function ExploreAgentVisual() {
-  return (
-    <div className="relative w-full max-w-[200px]">
-      {/* Nodes */}
-      <div className="flex flex-col items-center gap-3">
-        <div className="rounded-full border border-indigo-400/40 bg-indigo-500/15 px-3 py-1 text-[9px] text-indigo-300/80">
-          useAuth.ts
-        </div>
-        <div className="flex w-full justify-between px-2">
-          <div className="rounded-full border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[9px] text-white/45">
-            session.ts
-          </div>
-          <div className="rounded-full border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[9px] text-white/45">
-            token.ts
-          </div>
-        </div>
-        <div className="flex w-full justify-center gap-6">
-          <div className="rounded-full border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[9px] text-white/45">
-            db.ts
-          </div>
-          <div className="rounded-full border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[9px] text-white/45">
-            crypto.ts
-          </div>
-        </div>
-      </div>
-      {/* Connection lines via SVG */}
-      <svg
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox="0 0 200 100"
-        fill="none"
-      >
-        <line x1="100" y1="15" x2="50" y2="42" stroke="white" strokeOpacity="0.12" />
-        <line x1="100" y1="15" x2="150" y2="42" stroke="white" strokeOpacity="0.12" />
-        <line x1="50" y1="50" x2="65" y2="80" stroke="white" strokeOpacity="0.12" />
-        <line x1="150" y1="50" x2="135" y2="80" stroke="white" strokeOpacity="0.12" />
-      </svg>
-    </div>
-  );
+  return <AnimatedExploreGraph />;
 }
 
 /* ── Section 2-5: Two-Column Feature Sections ── */
@@ -514,21 +480,31 @@ export function FeatureSections() {
         <ToolsMCPVisual />
       </FeatureSection>
 
-      {/* Section 5: Hooks & Permissions */}
+      {/* Section 5: Interactive Terminal */}
+      <FeatureSection
+        heading="Smart terminal, only when you need it"
+        description="Most commands run silently in the background. But when the agent detects a long-running process, a dev server, or a command that needs your input — it opens a real interactive terminal automatically. Output streams back to the agent so it always knows what happened."
+        label="3.5 Interactive Terminal"
+        reverse
+      >
+        <AnimatedInteractiveTerminal />
+      </FeatureSection>
+
+      {/* Section 6: Hooks & Permissions */}
       <FeatureSection
         heading="Complete control, always"
         description="Hooks intercept every lifecycle event — before tool execution, on session start, after failures. Pattern-based permissions gate access per tool, per file, per agent. Nothing happens without your say."
         label="4.0 Hooks & Permissions"
-        reverse
       >
         <AnimatedPermissions />
       </FeatureSection>
 
-      {/* Section 6: Snapshot Revert & Diff Preview */}
+      {/* Section 7: Snapshot Revert & Diff Preview */}
       <FeatureSection
         heading="Review every change. Revert any moment."
         description="Every edit is shown as a diff before it touches your code — accept, reject, or retry. Snapshot revert lets you roll back specific files to any prior state in the session. Nothing is permanent until you say so."
         label="5.0 Snapshot & Diff"
+        reverse
       >
         <SnapshotDiffVisual />
       </FeatureSection>

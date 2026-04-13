@@ -113,7 +113,7 @@ export function CodeEditor({ state }: { state: DemoTimelineState }) {
           /* ── Normal line ── */
           return (
             <div key={i} className="flex" style={{ height: 22 }}>
-              <span className="mr-3 inline-block w-6 shrink-0 select-none text-right text-white/15">
+              <span className="mr-3 inline-block w-6 shrink-0 select-none text-right text-white/25">
                 {i + 1}
               </span>
               <div className="whitespace-nowrap">{renderTokens(line.tokens)}</div>
