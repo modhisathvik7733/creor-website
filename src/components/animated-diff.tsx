@@ -46,7 +46,7 @@ function AnimatedCounter({ target, animate, className }: { target: number; anima
 }
 
 export function AnimatedDiffPreview() {
-  const { ref, isIntersecting } = useIntersectionObserver({ threshold: 0.2 });
+  const { ref, isIntersecting } = useIntersectionObserver({ threshold: 0.5 });
   const [visibleLines, setVisibleLines] = useState(0);
   const [showButtons, setShowButtons] = useState(false);
 
