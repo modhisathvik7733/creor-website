@@ -41,7 +41,7 @@ function SkillNode({ data }: NodeProps) {
         {d.label}
       </div>
       {d.sub && <div className="text-[8px] text-white/25">{d.sub}</div>}
-      {active && !isLeaf && (
+      {active && d.type === "child" && (
         <div className="mt-0.5 animate-pulse text-[7px] text-indigo-400/60">
           context pulled
         </div>
@@ -83,16 +83,16 @@ const edgeTypes = { animated: AnimatedEdge };
 /* ── Node/Edge Definitions ── */
 
 const initialNodes: Node[] = [
-  { id: "root", type: "skill", position: { x: 150, y: 0 }, data: { label: "SKILL.md", sub: "Auth system", type: "root" } },
-  { id: "oauth", type: "skill", position: { x: 0, y: 80 }, data: { label: "oauth-flow", type: "child" } },
-  { id: "jwt", type: "skill", position: { x: 140, y: 80 }, data: { label: "jwt-tokens", type: "child" } },
-  { id: "mw", type: "skill", position: { x: 290, y: 80 }, data: { label: "middleware", type: "child" } },
-  { id: "google", type: "skill", position: { x: -30, y: 155 }, data: { label: "google-sso", type: "leaf" } },
-  { id: "github", type: "skill", position: { x: 55, y: 155 }, data: { label: "github-oauth", type: "leaf" } },
-  { id: "refresh", type: "skill", position: { x: 115, y: 155 }, data: { label: "refresh-flow", type: "leaf" } },
-  { id: "verify", type: "skill", position: { x: 200, y: 155 }, data: { label: "verify", type: "leaf" } },
-  { id: "rate", type: "skill", position: { x: 265, y: 155 }, data: { label: "rate-limit", type: "leaf" } },
-  { id: "cors", type: "skill", position: { x: 345, y: 155 }, data: { label: "cors-policy", type: "leaf" } },
+  { id: "root", type: "skill", position: { x: 250, y: 0 }, data: { label: "SKILL.md", sub: "Auth system", type: "root" } },
+  { id: "oauth", type: "skill", position: { x: 30, y: 100 }, data: { label: "oauth-flow", type: "child" } },
+  { id: "jwt", type: "skill", position: { x: 240, y: 100 }, data: { label: "jwt-tokens", type: "child" } },
+  { id: "mw", type: "skill", position: { x: 450, y: 100 }, data: { label: "middleware", type: "child" } },
+  { id: "google", type: "skill", position: { x: -20, y: 200 }, data: { label: "google-sso", type: "leaf" } },
+  { id: "github", type: "skill", position: { x: 100, y: 200 }, data: { label: "github-oauth", type: "leaf" } },
+  { id: "refresh", type: "skill", position: { x: 200, y: 200 }, data: { label: "refresh-flow", type: "leaf" } },
+  { id: "verify", type: "skill", position: { x: 320, y: 200 }, data: { label: "verify", type: "leaf" } },
+  { id: "rate", type: "skill", position: { x: 415, y: 200 }, data: { label: "rate-limit", type: "leaf" } },
+  { id: "cors", type: "skill", position: { x: 530, y: 200 }, data: { label: "cors-policy", type: "leaf" } },
 ];
 
 const initialEdges: Edge[] = [
@@ -190,7 +190,7 @@ export function AnimatedSkillGraph() {
       </div>
 
       {/* React Flow graph */}
-      <div className="h-[210px] w-full overflow-hidden rounded-md">
+      <div className="h-[260px] w-full overflow-hidden rounded-md">
         <ReactFlow
           nodes={nodes}
           edges={edges}
