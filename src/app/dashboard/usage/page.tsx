@@ -251,7 +251,6 @@ export default function UsagePage() {
           </button>
         </div>
       )}
-      </div>
 
       {/* Summary Stats */}
       <div className="mb-8 grid gap-4 sm:grid-cols-4">
