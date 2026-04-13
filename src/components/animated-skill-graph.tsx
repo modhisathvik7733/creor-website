@@ -207,7 +207,7 @@ function SkillGraphInner() {
       </div>
 
       {/* React Flow graph */}
-      <div ref={graphWrapperRef} className="h-[220px] w-full overflow-hidden rounded-md sm:h-[260px]">
+      <div ref={graphWrapperRef} className="pointer-events-none h-[220px] w-full overflow-hidden rounded-md sm:h-[260px]">
         <ReactFlow
           nodes={nodes}
           edges={edges}
