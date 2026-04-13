@@ -83,16 +83,16 @@ const edgeTypes = { animated: AnimatedEdge };
 /* ── Node/Edge Definitions ── */
 
 const initialNodes: Node[] = [
-  { id: "root", type: "skill", position: { x: 200, y: 0 }, data: { label: "SKILL.md", sub: "Auth system", type: "root" } },
-  { id: "oauth", type: "skill", position: { x: 20, y: 90 }, data: { label: "oauth-flow", type: "child" } },
-  { id: "jwt", type: "skill", position: { x: 190, y: 90 }, data: { label: "jwt-tokens", type: "child" } },
-  { id: "mw", type: "skill", position: { x: 365, y: 90 }, data: { label: "middleware", type: "child" } },
-  { id: "google", type: "skill", position: { x: -25, y: 180 }, data: { label: "google-sso", type: "leaf" } },
-  { id: "github", type: "skill", position: { x: 85, y: 180 }, data: { label: "github-oauth", type: "leaf" } },
-  { id: "refresh", type: "skill", position: { x: 165, y: 180 }, data: { label: "refresh-flow", type: "leaf" } },
-  { id: "verify", type: "skill", position: { x: 270, y: 180 }, data: { label: "verify", type: "leaf" } },
-  { id: "rate", type: "skill", position: { x: 340, y: 180 }, data: { label: "rate-limit", type: "leaf" } },
-  { id: "cors", type: "skill", position: { x: 440, y: 180 }, data: { label: "cors-policy", type: "leaf" } },
+  { id: "root", type: "skill", position: { x: 310, y: 0 }, data: { label: "SKILL.md", sub: "Auth system", type: "root" } },
+  { id: "oauth", type: "skill", position: { x: 40, y: 110 }, data: { label: "oauth-flow", type: "child" } },
+  { id: "jwt", type: "skill", position: { x: 295, y: 110 }, data: { label: "jwt-tokens", type: "child" } },
+  { id: "mw", type: "skill", position: { x: 550, y: 110 }, data: { label: "middleware", type: "child" } },
+  { id: "google", type: "skill", position: { x: -20, y: 220 }, data: { label: "google-sso", type: "leaf" } },
+  { id: "github", type: "skill", position: { x: 120, y: 220 }, data: { label: "github-oauth", type: "leaf" } },
+  { id: "refresh", type: "skill", position: { x: 240, y: 220 }, data: { label: "refresh-flow", type: "leaf" } },
+  { id: "verify", type: "skill", position: { x: 380, y: 220 }, data: { label: "verify", type: "leaf" } },
+  { id: "rate", type: "skill", position: { x: 500, y: 220 }, data: { label: "rate-limit", type: "leaf" } },
+  { id: "cors", type: "skill", position: { x: 640, y: 220 }, data: { label: "cors-policy", type: "leaf" } },
 ];
 
 const initialEdges: Edge[] = [
@@ -190,14 +190,14 @@ export function AnimatedSkillGraph() {
       </div>
 
       {/* React Flow graph */}
-      <div className="h-[240px] w-full overflow-hidden rounded-md">
+      <div className="h-[220px] w-full overflow-hidden rounded-md sm:h-[260px]">
         <ReactFlow
           nodes={nodes}
           edges={edges}
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
           fitView
-          fitViewOptions={{ padding: 0.2 }}
+          fitViewOptions={{ padding: 0.15, minZoom: 0.4, maxZoom: 1 }}
           panOnDrag={false}
           zoomOnScroll={false}
           zoomOnPinch={false}
