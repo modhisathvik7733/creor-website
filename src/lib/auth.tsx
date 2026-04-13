@@ -34,11 +34,34 @@ const AuthContext = createContext<AuthContextType>({
   logout: async () => {},
 });
 
+const DEV_USER: User = {
+  id: "dev-local-user",
+  email: "dev@localhost",
+  name: "Dev User",
+  role: "admin",
+  avatarUrl: null,
+  workspaceId: "dev-workspace",
+};
+
+function isDevBypass() {
+  return (
+    process.env.NODE_ENV === "development" &&
+    typeof window !== "undefined" &&
+    window.location.hostname === "localhost"
+  );
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
+  // Always start with null/loading to match server-rendered HTML (avoids hydration mismatch)
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchUser = useCallback(async () => {
+    if (isDevBypass()) {
+      setUser(DEV_USER);
+      setLoading(false);
+      return;
+    }
     // Clear any legacy localStorage tokens from before httpOnly cookie migration
     api.clearLegacyToken();
     try {
