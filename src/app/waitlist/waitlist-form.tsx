@@ -20,7 +20,7 @@ export function WaitlistForm() {
     try {
       // Try posting to backend API
       if (API_URL) {
-        const res = await fetch(`${API_URL}/waitlist`, {
+        const res = await fetch(`${API_URL}/api/waitlist`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email: email.trim() }),
