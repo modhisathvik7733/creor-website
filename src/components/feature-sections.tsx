@@ -1,5 +1,6 @@
 import { FadeIn } from "@/components/fade-in";
 import { TokenBudgetSlider } from "@/components/token-budget-slider";
+import { AnimatedRepoMap } from "@/components/animated-repo-map";
 import { AnimatedDiffPreview } from "@/components/animated-diff";
 import { ArrowRight } from "lucide-react";
 
@@ -179,43 +180,12 @@ function FeatureSection({
 /* ── Visual: Repo Map + Context ── */
 
 function RepoMapVisual() {
-  const files = [
-    { name: "src/", indent: 0, type: "folder" },
-    { name: "app/", indent: 1, type: "folder" },
-    { name: "layout.tsx", indent: 2, type: "file" },
-    { name: "page.tsx", indent: 2, type: "file" },
-    { name: "components/", indent: 1, type: "folder" },
-    { name: "Navbar.tsx", indent: 2, type: "file" },
-    { name: "CartSummary.tsx", indent: 2, type: "file" },
-    { name: "lib/", indent: 1, type: "folder" },
-    { name: "utils.ts", indent: 2, type: "file" },
-    { name: "api.ts", indent: 2, type: "file" },
-  ];
-
   const excludeTags = [".gitignore", "binaries", "lockfiles", "secrets", "node_modules"];
 
   return (
     <div className="grid gap-8 md:grid-cols-2">
       {/* File tree */}
-      <div>
-        <span className="mb-3 block font-mono text-[10px] uppercase tracking-widest text-white/35">
-          Repo Map
-        </span>
-        <div className="space-y-0.5 font-mono text-[11px]">
-          {files.map((f, i) => (
-            <div
-              key={i}
-              className="text-white/45"
-              style={{ paddingLeft: `${f.indent * 16}px` }}
-            >
-              <span className={f.type === "folder" ? "text-amber-400/60" : "text-white/35"}>
-                {f.type === "folder" ? "▸ " : "  "}
-              </span>
-              {f.name}
-            </div>
-          ))}
-        </div>
-      </div>
+      <AnimatedRepoMap />
 
       {/* Context settings */}
       <div className="space-y-5">
