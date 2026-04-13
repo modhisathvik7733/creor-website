@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import {
   ReactFlow,
+  ReactFlowProvider,
+  useReactFlow,
   type Node,
   type Edge,
   type NodeProps,
@@ -107,12 +109,14 @@ const initialEdges: Edge[] = [
   { id: "e-mw-cors", source: "mw", target: "cors", type: "animated" },
 ];
 
-/* ── Main Component ── */
+/* ── Inner graph component (has access to useReactFlow) ── */
 
 type Phase = "idle" | "query" | "traverse" | "found" | "response";
 
-export function AnimatedSkillGraph() {
+function SkillGraphInner() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const graphWrapperRef = useRef<HTMLDivElement>(null);
+  const { fitView } = useReactFlow();
   const [phase, setPhase] = useState<Phase>("idle");
   const [nodes, setNodes] = useNodesState(initialNodes);
   const [edges, setEdges] = useEdgesState(initialEdges);
@@ -125,6 +129,19 @@ export function AnimatedSkillGraph() {
     },
     [phase]
   );
+
+  // Re-fit on container resize
+  useEffect(() => {
+    const el = graphWrapperRef.current;
+    if (!el) return;
+
+    const ro = new ResizeObserver(() => {
+      fitView({ padding: 0.15, duration: 200 });
+    });
+
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [fitView]);
 
   // Trigger animation on scroll
   useEffect(() => {
@@ -190,14 +207,14 @@ export function AnimatedSkillGraph() {
       </div>
 
       {/* React Flow graph */}
-      <div className="h-[220px] w-full overflow-hidden rounded-md sm:h-[260px]">
+      <div ref={graphWrapperRef} className="h-[220px] w-full overflow-hidden rounded-md sm:h-[260px]">
         <ReactFlow
           nodes={nodes}
           edges={edges}
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
           fitView
-          fitViewOptions={{ padding: 0.15, minZoom: 0.4, maxZoom: 1 }}
+          fitViewOptions={{ padding: 0.15, minZoom: 0.3, maxZoom: 1 }}
           panOnDrag={false}
           zoomOnScroll={false}
           zoomOnPinch={false}
@@ -222,5 +239,15 @@ export function AnimatedSkillGraph() {
         JWT tokens are verified via <span className="text-emerald-400/60">verifyJWT(token, SECRET)</span> in auth middleware...
       </div>
     </div>
+  );
+}
+
+/* ── Exported wrapper with ReactFlowProvider ── */
+
+export function AnimatedSkillGraph() {
+  return (
+    <ReactFlowProvider>
+      <SkillGraphInner />
+    </ReactFlowProvider>
   );
 }
