@@ -83,16 +83,16 @@ const edgeTypes = { animated: AnimatedEdge };
 /* ── Node/Edge Definitions ── */
 
 const initialNodes: Node[] = [
-  { id: "root", type: "skill", position: { x: 280, y: 0 }, data: { label: "SKILL.md", sub: "Auth system", type: "root" } },
-  { id: "oauth", type: "skill", position: { x: 30, y: 120 }, data: { label: "oauth-flow", type: "child" } },
-  { id: "jwt", type: "skill", position: { x: 265, y: 120 }, data: { label: "jwt-tokens", type: "child" } },
-  { id: "mw", type: "skill", position: { x: 500, y: 120 }, data: { label: "middleware", type: "child" } },
-  { id: "google", type: "skill", position: { x: -25, y: 250 }, data: { label: "google-sso", type: "leaf" } },
-  { id: "github", type: "skill", position: { x: 110, y: 250 }, data: { label: "github-oauth", type: "leaf" } },
-  { id: "refresh", type: "skill", position: { x: 220, y: 250 }, data: { label: "refresh-flow", type: "leaf" } },
-  { id: "verify", type: "skill", position: { x: 355, y: 250 }, data: { label: "verify", type: "leaf" } },
-  { id: "rate", type: "skill", position: { x: 460, y: 250 }, data: { label: "rate-limit", type: "leaf" } },
-  { id: "cors", type: "skill", position: { x: 590, y: 250 }, data: { label: "cors-policy", type: "leaf" } },
+  { id: "root", type: "skill", position: { x: 200, y: 0 }, data: { label: "SKILL.md", sub: "Auth system", type: "root" } },
+  { id: "oauth", type: "skill", position: { x: 20, y: 90 }, data: { label: "oauth-flow", type: "child" } },
+  { id: "jwt", type: "skill", position: { x: 190, y: 90 }, data: { label: "jwt-tokens", type: "child" } },
+  { id: "mw", type: "skill", position: { x: 365, y: 90 }, data: { label: "middleware", type: "child" } },
+  { id: "google", type: "skill", position: { x: -25, y: 180 }, data: { label: "google-sso", type: "leaf" } },
+  { id: "github", type: "skill", position: { x: 85, y: 180 }, data: { label: "github-oauth", type: "leaf" } },
+  { id: "refresh", type: "skill", position: { x: 165, y: 180 }, data: { label: "refresh-flow", type: "leaf" } },
+  { id: "verify", type: "skill", position: { x: 270, y: 180 }, data: { label: "verify", type: "leaf" } },
+  { id: "rate", type: "skill", position: { x: 340, y: 180 }, data: { label: "rate-limit", type: "leaf" } },
+  { id: "cors", type: "skill", position: { x: 440, y: 180 }, data: { label: "cors-policy", type: "leaf" } },
 ];
 
 const initialEdges: Edge[] = [
@@ -173,13 +173,13 @@ export function AnimatedSkillGraph() {
 
   return (
     <div ref={containerRef}>
-      <span className="mb-4 block font-mono text-[10px] uppercase tracking-widest text-white/35">
+      <span className="mb-3 block font-mono text-[10px] uppercase tracking-widest text-white/35">
         Skill Graph
       </span>
 
       {/* Query */}
       <div
-        className={`mb-4 rounded-md border px-3 py-2 font-mono text-[10px] transition-all duration-500 ${
+        className={`mb-3 rounded-md border px-3 py-1.5 font-mono text-[10px] transition-all duration-500 ${
           past("query")
             ? "border-indigo-500/25 bg-indigo-500/[0.05] text-white/50 opacity-100"
             : "border-white/[0.06] text-white/20 opacity-0"
@@ -190,7 +190,7 @@ export function AnimatedSkillGraph() {
       </div>
 
       {/* React Flow graph */}
-      <div className="h-[340px] w-full overflow-hidden rounded-md">
+      <div className="h-[240px] w-full overflow-hidden rounded-md">
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -212,7 +212,7 @@ export function AnimatedSkillGraph() {
 
       {/* Response */}
       <div
-        className={`mt-4 rounded-md border px-3 py-2 font-mono text-[10px] transition-all duration-500 ${
+        className={`mt-3 rounded-md border px-3 py-1.5 font-mono text-[10px] transition-all duration-500 ${
           past("response")
             ? "border-emerald-500/20 bg-emerald-500/[0.05] text-white/50 opacity-100 translate-y-0"
             : "border-transparent text-white/20 opacity-0 translate-y-2"

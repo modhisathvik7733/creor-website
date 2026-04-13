@@ -235,7 +235,7 @@ function RepoMapVisual() {
 
 function SkillsRulesVisual() {
   return (
-    <div className="grid gap-8 md:grid-cols-2">
+    <div className="grid items-center gap-10 md:grid-cols-[1.2fr_1fr]">
       {/* Skill graph */}
       <AnimatedSkillGraph />
 

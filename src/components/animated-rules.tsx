@@ -47,11 +47,11 @@ export function AnimatedRules() {
 
   return (
     <div ref={containerRef}>
-      <span className="mb-4 block font-mono text-[10px] uppercase tracking-widest text-white/35">
+      <span className="mb-3 block font-mono text-[10px] uppercase tracking-widest text-white/35">
         Rules
       </span>
 
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         {rules.map((rule, i) => {
           const visible = i < visibleCount;
           const checked = i <= checkedIndex;
@@ -59,7 +59,7 @@ export function AnimatedRules() {
           return (
             <div
               key={rule.name}
-              className={`group rounded-lg border p-3 transition-all duration-400 ease-out ${
+              className={`group rounded-lg border px-3 py-2.5 transition-all duration-400 ease-out ${
                 visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
               } ${
                 checked
