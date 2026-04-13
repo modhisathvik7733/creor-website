@@ -4,12 +4,13 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/auth";
 import { api } from "@/lib/api";
-import { GridBackground } from "@/components/grid-background";
 import { Suspense } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 function isValidRedirect(url: string): boolean {
   if (!url || !url.startsWith('/')) return false;
-  if (url.startsWith('//')) return false;  // protocol-relative URLs
+  if (url.startsWith('//')) return false;
   if (url.includes('://')) return false;
   return true;
 }
@@ -47,9 +48,7 @@ function CallbackContent() {
           setError("Unknown provider");
           return;
         }
-        // Cookie is set by the API response; fetch user profile
         await login();
-        // Hard redirect to avoid race conditions with React re-renders
         window.location.href = stateRedirect;
       } catch (err: unknown) {
         setError(
@@ -61,70 +60,115 @@ function CallbackContent() {
 
   if (!code || !provider) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="text-center space-y-3">
-          <p className="text-sm text-red-500">Missing authentication parameters</p>
-          <a
-            href="/login"
-            className="text-sm text-foreground-secondary underline hover:text-foreground"
-          >
-            Try again
-          </a>
-        </div>
-      </div>
+      <Shell>
+        <ErrorState message="Missing authentication parameters" />
+      </Shell>
     );
   }
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="text-center space-y-3">
-          <p className="text-sm text-red-500">{error}</p>
-          <a
-            href="/login"
-            className="text-sm text-foreground-secondary underline hover:text-foreground"
-          >
-            Try again
-          </a>
-        </div>
-      </div>
+      <Shell>
+        <ErrorState message={error} />
+      </Shell>
     );
   }
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-background p-4 overflow-hidden">
-      <GridBackground />
-      <div className="relative z-10 flex flex-col items-center justify-center p-8 sm:p-12 rounded-3xl border border-white/5 bg-white/[0.02] shadow-[0_0_80px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-white/[0.08] to-transparent pointer-events-none" />
-        
-        <div className="relative mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-zinc-800 to-zinc-700 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_20px_rgba(0,0,0,0.5)]">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-white"
-          >
-            <polyline points="16 18 22 12 16 6" />
-            <polyline points="8 6 2 12 8 18" />
-          </svg>
-        </div>
+    <Shell>
+      {/* Spinner */}
+      <div className="relative mb-6 flex h-16 w-16 items-center justify-center">
+        <div className="absolute inset-0 animate-[spin_3s_linear_infinite] rounded-full border border-white/[0.06]" />
+        <div className="absolute inset-0 animate-[spin_1.2s_ease-in-out_infinite] rounded-full border-2 border-transparent border-t-indigo-400/80" />
+        <Image
+          src="/creor-nobg-icon.png"
+          alt="Creor"
+          width={28}
+          height={28}
+          className="h-7 w-7"
+        />
+      </div>
 
-        <div className="mb-6 relative flex h-12 w-12 items-center justify-center">
-          <div className="absolute h-full w-full animate-[spin_3s_linear_infinite] rounded-full border border-white/10" />
-          <div className="absolute h-full w-full animate-[spin_1.5s_ease-in-out_infinite] rounded-full border-2 border-transparent border-t-white shadow-[0_0_15px_rgba(255,255,255,0.5)]" />
-        </div>
+      <h2 className="text-[15px] font-medium tracking-tight text-white/80">
+        Signing you in
+      </h2>
+      <p className="mt-1.5 text-[13px] text-white/30">
+        Connecting to {provider === "github" ? "GitHub" : provider === "google" ? "Google" : "your account"}...
+      </p>
+    </Shell>
+  );
+}
 
-        <h2 className="text-lg font-semibold tracking-tight text-white/90">Authenticating</h2>
-        <p className="mt-2 text-sm text-white/50 text-center max-w-[200px] leading-relaxed">
-          Please wait while we securely log you in to Creor.
-        </p>
+function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative flex min-h-screen items-center justify-center bg-background overflow-hidden">
+      {/* Background gradient blobs */}
+      <div
+        className="pointer-events-none absolute top-1/3 left-1/4 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{
+          background: "radial-gradient(circle, rgba(129,140,248,0.06) 0%, transparent 70%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute bottom-1/4 right-1/4 h-[400px] w-[400px] rounded-full"
+        style={{
+          background: "radial-gradient(circle, rgba(168,85,247,0.05) 0%, transparent 70%)",
+        }}
+      />
+
+      {/* Dot grid */}
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.02]"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <pattern id="dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+            <circle cx="12" cy="12" r="0.8" fill="white" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dots)" />
+      </svg>
+
+      {/* Top-left logo */}
+      <Link
+        href="/"
+        className="absolute top-8 left-8 z-10 flex items-center gap-2 transition-opacity hover:opacity-70"
+      >
+        <Image src="/creor-nobg-icon.png" alt="Creor" width={28} height={28} className="h-7 w-7" />
+        <span className="text-[15px] font-semibold tracking-tight text-white/70">Creor</span>
+      </Link>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center text-center">
+        {children}
       </div>
     </div>
+  );
+}
+
+function ErrorState({ message }: { message: string }) {
+  return (
+    <>
+      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-red-500/20 bg-red-500/[0.08]">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-400">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="15" y1="9" x2="9" y2="15" />
+          <line x1="9" y1="9" x2="15" y2="15" />
+        </svg>
+      </div>
+      <h2 className="text-[15px] font-medium tracking-tight text-white/80">
+        Authentication failed
+      </h2>
+      <p className="mt-1.5 max-w-[260px] text-[13px] leading-relaxed text-white/30">
+        {message}
+      </p>
+      <a
+        href="/login"
+        className="mt-5 inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-[13px] font-medium text-white/60 transition-colors hover:bg-white/[0.06] hover:text-white/80"
+      >
+        Try again
+      </a>
+    </>
   );
 }
 
@@ -132,8 +176,8 @@ export default function AuthCallbackPage() {
   return (
     <Suspense
       fallback={
-        <div className="relative flex min-h-screen items-center justify-center bg-background p-4 overflow-hidden">
-          <GridBackground />
+        <div className="flex min-h-screen items-center justify-center bg-background">
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/10 border-t-white/60" />
         </div>
       }
     >
