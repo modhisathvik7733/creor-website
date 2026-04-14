@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { generatePageMetadata } from "@/lib/metadata";
 import { allSections } from "@/lib/docs-search-index";
 import { DocsCategoryCard } from "@/components/docs/docs-category-card";
-import { DocsHubSearch } from "./docs-hub-search";
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Documentation | Creor",
@@ -25,10 +24,9 @@ export default function DocsPage() {
           Everything you need to build with Creor — from quickstart to API reference.
         </p>
 
-        {/* Prominent search */}
-        <div className="mt-8">
-          <DocsHubSearch />
-        </div>
+        <p className="mt-4 text-[13px] text-[#555]">
+          Press <kbd className="rounded bg-[#1A1A1A] px-1.5 py-0.5 font-mono text-[11px] text-[#888]">&#x2318;K</kbd> to search
+        </p>
       </div>
 
       {/* Docs categories */}
