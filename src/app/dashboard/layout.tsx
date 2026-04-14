@@ -6,6 +6,11 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
+
+// Early-access allowlist
+const ALLOWED_EMAILS: Set<string> = new Set(
+  (process.env.NEXT_PUBLIC_ALLOWED_EMAILS ?? "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean)
+);
 import {
   LayoutDashboard,
   Settings,
@@ -42,6 +47,9 @@ export default function DashboardLayout({
   useEffect(() => {
     if (!loading && !user) {
       router.replace("/login");
+    }
+    if (!loading && user && ALLOWED_EMAILS.size > 0 && !ALLOWED_EMAILS.has(user.email.toLowerCase())) {
+      router.replace("/waitlist");
     }
   }, [loading, user, router]);
 

@@ -8,6 +8,11 @@ import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+// Early-access allowlist — only these emails can proceed; others go to waitlist
+const ALLOWED_EMAILS: Set<string> = new Set(
+  (process.env.NEXT_PUBLIC_ALLOWED_EMAILS ?? "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean)
+);
+
 function isValidRedirect(url: string): boolean {
   if (!url || !url.startsWith('/')) return false;
   if (url.startsWith('//')) return false;
@@ -49,6 +54,18 @@ function CallbackContent() {
           return;
         }
         await login();
+
+        // Early-access gate: check email before allowing access
+        try {
+          const me = await api.getMe();
+          if (ALLOWED_EMAILS.size > 0 && !ALLOWED_EMAILS.has(me.email.toLowerCase())) {
+            window.location.href = "/waitlist";
+            return;
+          }
+        } catch {
+          // If getMe fails, let the normal redirect handle it
+        }
+
         window.location.href = stateRedirect;
       } catch (err: unknown) {
         setError(

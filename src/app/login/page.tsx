@@ -9,6 +9,11 @@ import Image from "next/image";
 const GITHUB_CLIENT_ID = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID ?? "";
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "";
 
+// Early-access allowlist — only these emails can sign in; others go to waitlist
+const ALLOWED_EMAILS: Set<string> = new Set(
+  (process.env.NEXT_PUBLIC_ALLOWED_EMAILS ?? "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean)
+);
+
 const FUN_PROMPTS = [
   { prompt: "it works on my machine but not in production", response: "Classic. Found it — you forgot to set the env variable. Works everywhere now." },
   { prompt: "why is my div not centering", response: "Added display: flex and two lines. CSS is easy said no developer ever." },
@@ -134,6 +139,11 @@ function LoginContent() {
 
   useEffect(() => {
     if (!loading && user) {
+      // Early-access gate: if allowlist is set, only those emails can proceed
+      if (ALLOWED_EMAILS.size > 0 && !ALLOWED_EMAILS.has(user.email.toLowerCase())) {
+        router.replace("/waitlist");
+        return;
+      }
       router.replace(redirectTo);
     }
   }, [user, loading, router, redirectTo]);
