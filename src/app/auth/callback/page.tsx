@@ -8,10 +8,7 @@ import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-// Early-access allowlist — only these emails can proceed; others go to waitlist
-const ALLOWED_EMAILS: Set<string> = new Set(
-  (process.env.NEXT_PUBLIC_ALLOWED_EMAILS ?? "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean)
-);
+import { ALLOWED_EMAILS } from "@/lib/allowed-emails";
 
 function isValidRedirect(url: string): boolean {
   if (!url || !url.startsWith('/')) return false;

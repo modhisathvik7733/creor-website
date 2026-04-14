@@ -7,10 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
-// Early-access allowlist
-const ALLOWED_EMAILS: Set<string> = new Set(
-  (process.env.NEXT_PUBLIC_ALLOWED_EMAILS ?? "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean)
-);
+import { ALLOWED_EMAILS } from "@/lib/allowed-emails";
 import {
   LayoutDashboard,
   Settings,
