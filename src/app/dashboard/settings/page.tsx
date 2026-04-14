@@ -345,7 +345,7 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">Account</h1>
         <p className="mt-1 text-muted-foreground">Manage your account</p>

@@ -669,7 +669,7 @@ export default function BillingPage() {
   const subOverPlan = subLimit !== null && subUsage > subLimit;
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8">
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
 
       {/* Header */}
@@ -740,9 +740,9 @@ export default function BillingPage() {
               </button>
             </div>
 
-            <div className="px-8 py-6">
+            <div className="px-4 py-6 sm:px-8">
               {/* Plan Cards */}
-              <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
+              <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {planDefs.map((plan) => {
                   const isCurrent = plan.id === currentPlanId;
                   const isPending = subscription?.pendingPlan === plan.id;

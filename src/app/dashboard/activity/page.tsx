@@ -93,7 +93,7 @@ export default function ActivityPage() {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">Activity</h1>
         <p className="mt-1 text-muted-foreground">
