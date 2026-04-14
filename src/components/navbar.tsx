@@ -194,6 +194,7 @@ function MobileMenu({
 
 export function Navbar() {
   const { user } = useAuth();
+  const pathname = usePathname();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -246,8 +247,8 @@ export function Navbar() {
           className={cn(
             "pointer-events-auto border w-full max-w-[1440px] transition-[background-color,border-color,border-radius,box-shadow,backdrop-filter,margin] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
             scrolled
-              ? "mt-0 bg-background/90 backdrop-blur-xl border-transparent md:mt-3 md:rounded-full md:border-white/[0.10] md:bg-white/[0.05] md:backdrop-blur-2xl md:shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
-              : "mt-0 bg-background/80 backdrop-blur-md border-transparent md:mt-5 md:bg-transparent md:backdrop-blur-none"
+              ? `mt-0 backdrop-blur-xl border-transparent ${pathname === "/pricing" ? "bg-background" : "bg-background/90"} md:mt-3 md:rounded-full md:border-white/[0.10] md:bg-white/[0.05] md:backdrop-blur-2xl md:shadow-[0_8px_32px_rgba(0,0,0,0.4)]`
+              : `mt-0 backdrop-blur-md border-transparent ${pathname === "/pricing" ? "bg-background" : "bg-background/80"} md:mt-5 md:bg-transparent md:backdrop-blur-none`
           )}
         >
           <div className="relative flex h-14 w-full items-center px-3 md:px-6">
