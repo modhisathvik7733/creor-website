@@ -83,7 +83,6 @@ export default function UsagePage() {
   const [customStart, setCustomStart] = useState("");
   const [customEnd, setCustomEnd] = useState("");
   const [showCustom, setShowCustom] = useState(false);
-  const [fetchKey, setFetchKey] = useState(0); // bump to re-fetch
   const [sortKey, setSortKey] = useState<SortKey>("cost");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [searchQuery, setSearchQuery] = useState("");
@@ -93,7 +92,7 @@ export default function UsagePage() {
       return { start: new Date(customStart).toISOString(), end: new Date(customEnd + "T23:59:59").toISOString() };
     }
     return getDateRange(RANGES[rangeIdx].days);
-  }, [rangeIdx, showCustom, customStart, customEnd, fetchKey]);
+  }, [rangeIdx, showCustom, customStart, customEnd]);
 
   useEffect(() => {
     let stale = false;
@@ -242,13 +241,6 @@ export default function UsagePage() {
             onChange={(e) => setCustomEnd(e.target.value)}
             className="h-8 rounded-lg border border-border bg-background px-3 text-xs outline-none transition-colors focus:border-foreground/30 [color-scheme:dark]"
           />
-          <button
-            onClick={() => setFetchKey((k) => k + 1)}
-            disabled={!customStart || !customEnd}
-            className="h-8 rounded-lg bg-foreground px-4 text-xs font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-40"
-          >
-            Apply
-          </button>
         </div>
       )}
 
