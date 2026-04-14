@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Search, ArrowRight, FileText, Code2 } from "lucide-react";
-import { searchDocs, type SearchEntry } from "@/lib/docs-search-index";
+import { searchDocs } from "@/lib/docs-search-index";
 
 export function DocsSearchTrigger({ onOpen }: { onOpen: () => void }) {
   return (
@@ -26,26 +26,24 @@ export function DocsSearchModal({ isOpen, onClose }: { isOpen: boolean; onClose:
   const [selected, setSelected] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const prevOpenRef = useRef(false);
-  if (isOpen && !prevOpenRef.current) {
-    // Reset state when modal opens (during render, not in effect)
-    if (query !== "") setQuery("");
-    if (selected !== 0) setSelected(0);
-  }
-  prevOpenRef.current = isOpen;
+  // Reset state & focus when modal opens
+  const handleOpen = useCallback(() => {
+    setQuery("");
+    setSelected(0);
+    setTimeout(() => inputRef.current?.focus(), 50);
+  }, []);
 
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
-    }
-  }, [isOpen]);
+    if (isOpen) handleOpen();
+  }, [isOpen, handleOpen]);
 
-  const prevQueryRef = useRef(query);
-  const searchResults = useMemo(() => searchDocs(query), [query]);
-  if (prevQueryRef.current !== query) {
-    prevQueryRef.current = query;
-    if (selected !== 0) setSelected(0);
-  }
+  // Derive search results from query (no effect needed)
+  const searchResults = searchDocs(query);
+
+  const handleQueryChange = useCallback((value: string) => {
+    setQuery(value);
+    setSelected(0);
+  }, []);
 
   const navigate = useCallback(
     (href: string) => {
@@ -105,7 +103,7 @@ export function DocsSearchModal({ isOpen, onClose }: { isOpen: boolean; onClose:
             ref={inputRef}
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => handleQueryChange(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Search docs, API, guides..."
             className="flex-1 bg-transparent text-[16px] text-[#EDEDED] outline-none placeholder:text-[#444]"
