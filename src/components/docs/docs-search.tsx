@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Search, ArrowRight, FileText, Code2 } from "lucide-react";
 import { searchDocs, type SearchEntry } from "@/lib/docs-search-index";
@@ -23,23 +23,29 @@ export function DocsSearchTrigger({ onOpen }: { onOpen: () => void }) {
 export function DocsSearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SearchEntry[]>([]);
   const [selected, setSelected] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const prevOpenRef = useRef(false);
+  if (isOpen && !prevOpenRef.current) {
+    // Reset state when modal opens (during render, not in effect)
+    if (query !== "") setQuery("");
+    if (selected !== 0) setSelected(0);
+  }
+  prevOpenRef.current = isOpen;
+
   useEffect(() => {
     if (isOpen) {
-      setQuery("");
-      setResults([]);
-      setSelected(0);
       setTimeout(() => inputRef.current?.focus(), 50);
     }
   }, [isOpen]);
 
-  useEffect(() => {
-    setResults(searchDocs(query));
-    setSelected(0);
-  }, [query]);
+  const prevQueryRef = useRef(query);
+  const searchResults = useMemo(() => searchDocs(query), [query]);
+  if (prevQueryRef.current !== query) {
+    prevQueryRef.current = query;
+    if (selected !== 0) setSelected(0);
+  }
 
   const navigate = useCallback(
     (href: string) => {
@@ -52,13 +58,13 @@ export function DocsSearchModal({ isOpen, onClose }: { isOpen: boolean; onClose:
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setSelected((s) => Math.min(s + 1, results.length - 1));
+      setSelected((s) => Math.min(s + 1, searchResults.length - 1));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setSelected((s) => Math.max(s - 1, 0));
-    } else if (e.key === "Enter" && results[selected]) {
+    } else if (e.key === "Enter" && searchResults[selected]) {
       e.preventDefault();
-      navigate(results[selected].href);
+      navigate(searchResults[selected].href);
     } else if (e.key === "Escape") {
       onClose();
     }
@@ -114,15 +120,15 @@ export function DocsSearchModal({ isOpen, onClose }: { isOpen: boolean; onClose:
 
         {/* Results */}
         <div className="max-h-[400px] overflow-y-auto">
-          {query && results.length === 0 && (
+          {query && searchResults.length === 0 && (
             <div className="px-5 py-10 text-center text-[14px] text-[#555]">
-              No results for &ldquo;{query}&rdquo;
+              No searchResults for &ldquo;{query}&rdquo;
             </div>
           )}
 
-          {results.length > 0 && (
+          {searchResults.length > 0 && (
             <div className="py-2">
-              {results.map((entry, i) => (
+              {searchResults.map((entry, i) => (
                 <button
                   key={entry.href}
                   onClick={() => navigate(entry.href)}
