@@ -183,6 +183,7 @@ interface Payment {
   amount: number;
   currency: string;
   status: string;
+  ddOrderId: string | null;
   timeCreated: string;
   upgrade?: { from: string; to: string };
 }
